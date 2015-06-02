@@ -8,6 +8,12 @@ The intent of this project is to turn a HackRF (or other SDR board)
 into a multi-band transceiver for use in amateur radio contents such as
 the ARRL June VHF contest. At present it only supports CW.
 
+At the moment, it depends on patches to hackrf and gr-osmosdr to add
+support for transmit/receive switching:
+
+* https://github.com/argilo/hackrf/tree/allow-tr-switching
+* https://github.com/argilo/gr-osmosdr/tree/allow-tr-switching
+
 License
 =======
 
