@@ -1,4 +1,4 @@
-# Copyright 2014 Clayton Smith
+# Copyright 2015 Clayton Smith
 #
 # This file is part of contest-sdr
 #
