@@ -13,6 +13,21 @@ support for transmit/receive switching:
 * https://github.com/argilo/hackrf/tree/allow-tr-switching
 * https://github.com/argilo/gr-osmosdr/tree/allow-tr-switching
 
+## Usage
+
+Install GNU Radio, and build hackrf and gr-osmosdr using the
+"allow-tr-switching" branches indicated above. This can be accomplished
+most easily using PyBOMBS.
+
+The main transceiver application is vhf_transceiver.py, which can be
+run from the command line. It ties together the receive and transmit
+flow graphs (vhf_rx, vhf_tx) which are built with GNU Radio Companion.
+The GUI is part of the receive flow graph.
+
+To transmit CW, type your message into the "CW to send" box and press
+enter. Once transmission is complete, the box will empty and the
+waterfalls will start running again.
+
 ## License
 
 Copyright 2015 Clayton Smith
