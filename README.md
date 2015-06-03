@@ -4,7 +4,7 @@ Author: Clayton Smith
 Email: <argilo@gmail.com>
 
 The intent of this project is to turn a HackRF (or other SDR board)
-into a multi-band transceiver for use in amateur radio contents such as
+into a multi-band transceiver for use in amateur radio contests such as
 the ARRL June VHF contest. At present it only supports CW.
 
 At the moment, it depends on patches to hackrf and gr-osmosdr to add
