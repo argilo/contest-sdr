@@ -1,5 +1,4 @@
-contest-sdr
-===========
+# contest-sdr
 
 Author: Clayton Smith  
 Email: <argilo@gmail.com>
@@ -14,8 +13,7 @@ support for transmit/receive switching:
 * https://github.com/argilo/hackrf/tree/allow-tr-switching
 * https://github.com/argilo/gr-osmosdr/tree/allow-tr-switching
 
-License
-=======
+## License
 
 Copyright 2015 Clayton Smith
 
