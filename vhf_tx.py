@@ -2,7 +2,7 @@
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Vhf Tx
-# Generated: Tue Jun  2 08:28:28 2015
+# Generated: Mon Jun  8 08:11:56 2015
 ##################################################
 
 from gnuradio import analog
@@ -30,7 +30,7 @@ class vhf_tx(gr.top_block):
         self.tune = tune = 100
         self.offset = offset = 200000
         self.cw_vector = cw_vector = (1,0,1,0,1,0,1,1,1, 0,0,0, 1,0,1,0,1,0,1,1,1, 0,0,0, 1,0,1,0,1,0,1,1,1, 0,0,0,0,0,0,0, 1,1,1,0,1,0,1, 0,0,0, 1, 0,0,0,0,0,0,0, 1,0,1,0,1,0,1,1,1, 0,0,0, 1, 0,0,0, 1,0,1,0,1,0,1,1,1,0,1,1,1, 0,0,0, 1,0,1, 0,0,0, 1,0,1,1,1,0,1, 0,0,0, 1,0,1,1,1,0,1, 0,0,0,0,0,0,0, 1,1,1, 0,0,0, 1, 0,0,0, 1,0,1,0,1, 0,0,0, 1,1,1, 0,0,0, 1,0,1, 0,0,0, 1,1,1,0,1, 0,0,0, 1,1,1,0,1,1,1,0,1, 0,0,0,0,0,0,0)
-        self.correction = correction = -11
+        self.correction = correction = 0
         self.band = band = 432
         self.audio_rate = audio_rate = samp_rate / interpolation
 

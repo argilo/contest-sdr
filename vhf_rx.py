@@ -2,7 +2,7 @@
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Vhf Rx
-# Generated: Tue Jun  2 08:00:27 2015
+# Generated: Mon Jun  8 08:12:02 2015
 ##################################################
 
 if __name__ == '__main__':
@@ -63,6 +63,7 @@ class vhf_rx(gr.top_block, Qt.QWidget):
         ##################################################
         # Variables
         ##################################################
+        self.cal_freq = cal_freq = 626.309441
         self.tx_text = tx_text = ""
         self.tune = tune = 100
         self.samp_rate = samp_rate = 4000000
@@ -70,16 +71,16 @@ class vhf_rx(gr.top_block, Qt.QWidget):
         self.lna_enable = lna_enable = False
         self.if_gain = if_gain = 16
         self.decimation = decimation = 20
-        self.correction = correction = -11
+        self.correction = correction = 0
         self.bb_gain = bb_gain = 24
-        self.band = band = 432
+        self.band = band = cal_freq
 
         ##################################################
         # Blocks
         ##################################################
         self._tune_range = Range(80, 120, 0.01, 100, 200)
         self._tune_win = RangeWidget(self._tune_range, self.set_tune, "Tune (kHz)", "counter_slider", float)
-        self.top_grid_layout.addWidget(self._tune_win, 1,1,1,2)
+        self.top_grid_layout.addWidget(self._tune_win, 1,1,1,3)
         _lna_enable_check_box = Qt.QCheckBox("LNA")
         self._lna_enable_choices = {True: True, False: False}
         self._lna_enable_choices_inv = dict((v,k) for k,v in self._lna_enable_choices.iteritems())
@@ -90,11 +91,14 @@ class vhf_rx(gr.top_block, Qt.QWidget):
         self._if_gain_range = Range(0, 40, 8, 16, 200)
         self._if_gain_win = RangeWidget(self._if_gain_range, self.set_if_gain, "IF gain", "counter_slider", float)
         self.top_grid_layout.addWidget(self._if_gain_win, 0,1,1,1)
+        self._correction_range = Range(-20, 20, 1, 0, 200)
+        self._correction_win = RangeWidget(self._correction_range, self.set_correction, "PPM", "counter", float)
+        self.top_grid_layout.addWidget(self._correction_win, 0,3,1,1)
         self._bb_gain_range = Range(0, 62, 2, 24, 200)
         self._bb_gain_win = RangeWidget(self._bb_gain_range, self.set_bb_gain, "BB gain", "counter_slider", float)
         self.top_grid_layout.addWidget(self._bb_gain_win, 0,2,1,1)
-        self._band_options = [50, 144, 222, 432, 903, 1296, 2304, 3456, 5760]
-        self._band_labels = map(str, self._band_options)
+        self._band_options = [cal_freq, 50, 144, 222, 432, 903, 1296, 2304, 3456, 5760]
+        self._band_labels = ["Calibrate", "50", "144", "222", "432", "903", "1296", "2304", "3456", "5760"]
         self._band_tool_bar = Qt.QToolBar(self)
         self._band_tool_bar.addWidget(Qt.QLabel("Band"+": "))
         self._band_combo_box = Qt.QComboBox()
@@ -172,7 +176,7 @@ class vhf_rx(gr.top_block, Qt.QWidget):
         self.if_waterfall.set_intensity_range(-140, 10)
         
         self._if_waterfall_win = sip.wrapinstance(self.if_waterfall.pyqwidget(), Qt.QWidget)
-        self.top_grid_layout.addWidget(self._if_waterfall_win, 3,0,1,3)
+        self.top_grid_layout.addWidget(self._if_waterfall_win, 3,0,1,4)
         self.if_filter = filter.fir_filter_ccf(decimation, firdes.low_pass(
         	1, samp_rate, 75000, 25000, firdes.WIN_HAMMING, 6.76))
         self.cx_to_real = blocks.complex_to_real(1)
@@ -210,7 +214,7 @@ class vhf_rx(gr.top_block, Qt.QWidget):
         self.audio_waterfall.set_intensity_range(-140, 10)
         
         self._audio_waterfall_win = sip.wrapinstance(self.audio_waterfall.pyqwidget(), Qt.QWidget)
-        self.top_grid_layout.addWidget(self._audio_waterfall_win, 4,0,1,3)
+        self.top_grid_layout.addWidget(self._audio_waterfall_win, 4,0,1,4)
         self.audio_out = audio.sink(48000, "", True)
 
         ##################################################
@@ -233,6 +237,13 @@ class vhf_rx(gr.top_block, Qt.QWidget):
         self.settings = Qt.QSettings("GNU Radio", "vhf_rx")
         self.settings.setValue("geometry", self.saveGeometry())
         event.accept()
+
+    def get_cal_freq(self):
+        return self.cal_freq
+
+    def set_cal_freq(self, cal_freq):
+        self.cal_freq = cal_freq
+        self.set_band(self.cal_freq)
 
     def get_tx_text(self):
         return self.tx_text
