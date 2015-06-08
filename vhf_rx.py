@@ -2,7 +2,7 @@
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Vhf Rx
-# Generated: Mon Jun  8 08:12:02 2015
+# Generated: Mon Jun  8 18:03:20 2015
 ##################################################
 
 if __name__ == '__main__':
@@ -73,7 +73,7 @@ class vhf_rx(gr.top_block, Qt.QWidget):
         self.decimation = decimation = 20
         self.correction = correction = 0
         self.bb_gain = bb_gain = 24
-        self.band = band = cal_freq
+        self.band = band = cal_freq - 0.1
 
         ##################################################
         # Blocks
@@ -97,7 +97,7 @@ class vhf_rx(gr.top_block, Qt.QWidget):
         self._bb_gain_range = Range(0, 62, 2, 24, 200)
         self._bb_gain_win = RangeWidget(self._bb_gain_range, self.set_bb_gain, "BB gain", "counter_slider", float)
         self.top_grid_layout.addWidget(self._bb_gain_win, 0,2,1,1)
-        self._band_options = [cal_freq, 50, 144, 222, 432, 903, 1296, 2304, 3456, 5760]
+        self._band_options = [cal_freq - 0.1, 50, 144, 222, 432, 903, 1296, 2304, 3456, 5760]
         self._band_labels = ["Calibrate", "50", "144", "222", "432", "903", "1296", "2304", "3456", "5760"]
         self._band_tool_bar = Qt.QToolBar(self)
         self._band_tool_bar.addWidget(Qt.QLabel("Band"+": "))
@@ -243,7 +243,7 @@ class vhf_rx(gr.top_block, Qt.QWidget):
 
     def set_cal_freq(self, cal_freq):
         self.cal_freq = cal_freq
-        self.set_band(self.cal_freq)
+        self.set_band(self.cal_freq - 0.1)
 
     def get_tx_text(self):
         return self.tx_text

@@ -81,7 +81,7 @@
     </param>
     <param>
       <key>value</key>
-      <value>cal_freq</value>
+      <value>cal_freq - 0.1</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -157,7 +157,7 @@
     </param>
     <param>
       <key>options</key>
-      <value>[cal_freq, 50, 144, 222, 432, 903, 1296, 2304, 3456, 5760]</value>
+      <value>[cal_freq - 0.1, 50, 144, 222, 432, 903, 1296, 2304, 3456, 5760]</value>
     </param>
     <param>
       <key>orient</key>
