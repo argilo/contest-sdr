@@ -854,11 +854,11 @@
     </param>
     <param>
       <key>int_max</key>
-      <value>10</value>
+      <value>0</value>
     </param>
     <param>
       <key>int_min</key>
-      <value>-140</value>
+      <value>-120</value>
     </param>
     <param>
       <key>legend</key>
@@ -1191,11 +1191,11 @@
     </param>
     <param>
       <key>int_max</key>
-      <value>10</value>
+      <value>0</value>
     </param>
     <param>
       <key>int_min</key>
-      <value>-140</value>
+      <value>-120</value>
     </param>
     <param>
       <key>legend</key>

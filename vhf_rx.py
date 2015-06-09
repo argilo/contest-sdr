@@ -2,7 +2,7 @@
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Vhf Rx
-# Generated: Mon Jun  8 18:27:28 2015
+# Generated: Mon Jun  8 20:55:02 2015
 ##################################################
 
 if __name__ == '__main__':
@@ -179,7 +179,7 @@ class vhf_rx(gr.top_block, Qt.QWidget):
             self.if_waterfall.set_color_map(i, colors[i])
             self.if_waterfall.set_line_alpha(i, alphas[i])
         
-        self.if_waterfall.set_intensity_range(-140, 10)
+        self.if_waterfall.set_intensity_range(-120, 0)
         
         self._if_waterfall_win = sip.wrapinstance(self.if_waterfall.pyqwidget(), Qt.QWidget)
         self.top_grid_layout.addWidget(self._if_waterfall_win, 3,0,1,4)
@@ -217,7 +217,7 @@ class vhf_rx(gr.top_block, Qt.QWidget):
             self.audio_waterfall.set_color_map(i, colors[i])
             self.audio_waterfall.set_line_alpha(i, alphas[i])
         
-        self.audio_waterfall.set_intensity_range(-140, 10)
+        self.audio_waterfall.set_intensity_range(-120, 0)
         
         self._audio_waterfall_win = sip.wrapinstance(self.audio_waterfall.pyqwidget(), Qt.QWidget)
         self.top_grid_layout.addWidget(self._audio_waterfall_win, 4,0,1,4)
