@@ -97,7 +97,7 @@
     </param>
     <param>
       <key>gui_hint</key>
-      <value>1,0,1,1</value>
+      <value>0,5,1,1</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -176,7 +176,7 @@
     </param>
     <param>
       <key>labels</key>
-      <value>["Calibrate", "50", "144", "222", "432", "903", "1296", "2304", "3456", "5760"]</value>
+      <value>["Calib.", "50", "144", "222", "432", "903", "1296", "2304", "3456", "5760"]</value>
     </param>
     <param>
       <key>num_opts</key>
@@ -239,7 +239,7 @@
     </param>
     <param>
       <key>gui_hint</key>
-      <value>0,3,1,1</value>
+      <value>0,4,1,1</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -356,7 +356,7 @@
     </param>
     <param>
       <key>gui_hint</key>
-      <value>0,4,1,1</value>
+      <value>0,1,1,1</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -446,7 +446,7 @@
     </param>
     <param>
       <key>gui_hint</key>
-      <value>0,2,1,1</value>
+      <value>0,3,1,1</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -513,7 +513,7 @@
     </param>
     <param>
       <key>gui_hint</key>
-      <value>0,1,1,1</value>
+      <value>0,2,1,1</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -610,7 +610,7 @@
     </param>
     <param>
       <key>gui_hint</key>
-      <value>1,2,1,3</value>
+      <value>1,4,1,3</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -673,7 +673,7 @@
     </param>
     <param>
       <key>gui_hint</key>
-      <value>1,1,1,1</value>
+      <value>0,6,1,1</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -736,7 +736,7 @@
     </param>
     <param>
       <key>gui_hint</key>
-      <value>2,0,1,3</value>
+      <value>1,0,1,4</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -838,7 +838,7 @@
     </param>
     <param>
       <key>gui_hint</key>
-      <value>4,0,1,4</value>
+      <value>4,0,1,7</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -1175,7 +1175,7 @@
     </param>
     <param>
       <key>gui_hint</key>
-      <value>3,0,1,4</value>
+      <value>3,0,1,7</value>
     </param>
     <param>
       <key>_rotation</key>
