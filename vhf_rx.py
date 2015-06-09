@@ -2,7 +2,7 @@
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Vhf Rx
-# Generated: Mon Jun  8 18:03:20 2015
+# Generated: Mon Jun  8 18:27:28 2015
 ##################################################
 
 if __name__ == '__main__':
@@ -63,8 +63,10 @@ class vhf_rx(gr.top_block, Qt.QWidget):
         ##################################################
         # Variables
         ##################################################
-        self.cal_freq = cal_freq = 626.309441
+        self.cal_freq = cal_freq = 626309441
+        self.cal_band = cal_band = (cal_freq - 100e3) / 1e6
         self.tx_text = tx_text = ""
+        self.tx_gain = tx_gain = 20
         self.tune = tune = 100
         self.samp_rate = samp_rate = 4000000
         self.offset = offset = 200000
@@ -73,31 +75,32 @@ class vhf_rx(gr.top_block, Qt.QWidget):
         self.decimation = decimation = 20
         self.correction = correction = 0
         self.bb_gain = bb_gain = 24
-        self.band = band = cal_freq - 0.1
+        self.band = band = cal_band
+        self.amp_enable = amp_enable = False
 
         ##################################################
         # Blocks
         ##################################################
         self._tune_range = Range(80, 120, 0.01, 100, 200)
         self._tune_win = RangeWidget(self._tune_range, self.set_tune, "Tune (kHz)", "counter_slider", float)
-        self.top_grid_layout.addWidget(self._tune_win, 1,1,1,3)
+        self.top_grid_layout.addWidget(self._tune_win, 1,2,1,3)
         _lna_enable_check_box = Qt.QCheckBox("LNA")
         self._lna_enable_choices = {True: True, False: False}
         self._lna_enable_choices_inv = dict((v,k) for k,v in self._lna_enable_choices.iteritems())
         self._lna_enable_callback = lambda i: Qt.QMetaObject.invokeMethod(_lna_enable_check_box, "setChecked", Qt.Q_ARG("bool", self._lna_enable_choices_inv[i]))
         self._lna_enable_callback(self.lna_enable)
         _lna_enable_check_box.stateChanged.connect(lambda i: self.set_lna_enable(self._lna_enable_choices[bool(i)]))
-        self.top_grid_layout.addWidget(_lna_enable_check_box, 0,0,1,1)
+        self.top_grid_layout.addWidget(_lna_enable_check_box, 0,1,1,1)
         self._if_gain_range = Range(0, 40, 8, 16, 200)
         self._if_gain_win = RangeWidget(self._if_gain_range, self.set_if_gain, "IF gain", "counter_slider", float)
-        self.top_grid_layout.addWidget(self._if_gain_win, 0,1,1,1)
+        self.top_grid_layout.addWidget(self._if_gain_win, 0,2,1,1)
         self._correction_range = Range(-20, 20, 1, 0, 200)
         self._correction_win = RangeWidget(self._correction_range, self.set_correction, "PPM", "counter", float)
-        self.top_grid_layout.addWidget(self._correction_win, 0,3,1,1)
+        self.top_grid_layout.addWidget(self._correction_win, 0,4,1,1)
         self._bb_gain_range = Range(0, 62, 2, 24, 200)
         self._bb_gain_win = RangeWidget(self._bb_gain_range, self.set_bb_gain, "BB gain", "counter_slider", float)
-        self.top_grid_layout.addWidget(self._bb_gain_win, 0,2,1,1)
-        self._band_options = [cal_freq - 0.1, 50, 144, 222, 432, 903, 1296, 2304, 3456, 5760]
+        self.top_grid_layout.addWidget(self._bb_gain_win, 0,3,1,1)
+        self._band_options = [cal_band, 50, 144, 222, 432, 903, 1296, 2304, 3456, 5760]
         self._band_labels = ["Calibrate", "50", "144", "222", "432", "903", "1296", "2304", "3456", "5760"]
         self._band_tool_bar = Qt.QToolBar(self)
         self._band_tool_bar.addWidget(Qt.QLabel("Band"+": "))
@@ -108,7 +111,7 @@ class vhf_rx(gr.top_block, Qt.QWidget):
         self._band_callback(self.band)
         self._band_combo_box.currentIndexChanged.connect(
         	lambda i: self.set_band(self._band_options[i]))
-        self.top_grid_layout.addWidget(self._band_tool_bar, 1,0,1,1)
+        self.top_grid_layout.addWidget(self._band_tool_bar, 0,0,1,1)
         self.volume_mult = blocks.multiply_const_vff((10, ))
         self.usb_filter = filter.fir_filter_ccc(25, firdes.complex_band_pass(
         	1, samp_rate / decimation, 200, 2800, 200, firdes.WIN_HAMMING, 6.76))
@@ -119,6 +122,9 @@ class vhf_rx(gr.top_block, Qt.QWidget):
         self._tx_text_line_edit.returnPressed.connect(
         	lambda: self.set_tx_text(str(str(self._tx_text_line_edit.text().toAscii()))))
         self.top_grid_layout.addWidget(self._tx_text_tool_bar, 2,0,1,3)
+        self._tx_gain_range = Range(0, 47, 1, 20, 200)
+        self._tx_gain_win = RangeWidget(self._tx_gain_range, self.set_tx_gain, "TX gain", "counter_slider", float)
+        self.top_grid_layout.addWidget(self._tx_gain_win, 1,1,1,1)
         self.rf_in = osmosdr.source( args="numchan=" + str(1) + " " + "" )
         self.rf_in.set_sample_rate(samp_rate)
         self.rf_in.set_center_freq(band * 1e6 + 100000 - offset, 0)
@@ -216,6 +222,13 @@ class vhf_rx(gr.top_block, Qt.QWidget):
         self._audio_waterfall_win = sip.wrapinstance(self.audio_waterfall.pyqwidget(), Qt.QWidget)
         self.top_grid_layout.addWidget(self._audio_waterfall_win, 4,0,1,4)
         self.audio_out = audio.sink(48000, "", True)
+        _amp_enable_check_box = Qt.QCheckBox("TX Amp")
+        self._amp_enable_choices = {True: True, False: False}
+        self._amp_enable_choices_inv = dict((v,k) for k,v in self._amp_enable_choices.iteritems())
+        self._amp_enable_callback = lambda i: Qt.QMetaObject.invokeMethod(_amp_enable_check_box, "setChecked", Qt.Q_ARG("bool", self._amp_enable_choices_inv[i]))
+        self._amp_enable_callback(self.amp_enable)
+        _amp_enable_check_box.stateChanged.connect(lambda i: self.set_amp_enable(self._amp_enable_choices[bool(i)]))
+        self.top_grid_layout.addWidget(_amp_enable_check_box, 1,0,1,1)
 
         ##################################################
         # Connections
@@ -243,7 +256,14 @@ class vhf_rx(gr.top_block, Qt.QWidget):
 
     def set_cal_freq(self, cal_freq):
         self.cal_freq = cal_freq
-        self.set_band(self.cal_freq - 0.1)
+        self.set_cal_band((self.cal_freq - 100e3) / 1e6)
+
+    def get_cal_band(self):
+        return self.cal_band
+
+    def set_cal_band(self, cal_band):
+        self.cal_band = cal_band
+        self.set_band(self.cal_band)
 
     def get_tx_text(self):
         return self.tx_text
@@ -251,6 +271,12 @@ class vhf_rx(gr.top_block, Qt.QWidget):
     def set_tx_text(self, tx_text):
         self.tx_text = tx_text
         Qt.QMetaObject.invokeMethod(self._tx_text_line_edit, "setText", Qt.Q_ARG("QString", str(self.tx_text)))
+
+    def get_tx_gain(self):
+        return self.tx_gain
+
+    def set_tx_gain(self, tx_gain):
+        self.tx_gain = tx_gain
 
     def get_tune(self):
         return self.tune
@@ -324,6 +350,13 @@ class vhf_rx(gr.top_block, Qt.QWidget):
         self.band = band
         self._band_callback(self.band)
         self.rf_in.set_center_freq(self.band * 1e6 + 100000 - self.offset, 0)
+
+    def get_amp_enable(self):
+        return self.amp_enable
+
+    def set_amp_enable(self, amp_enable):
+        self.amp_enable = amp_enable
+        self._amp_enable_callback(self.amp_enable)
 
 
 if __name__ == '__main__':

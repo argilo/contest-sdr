@@ -2,7 +2,7 @@
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Vhf Tx
-# Generated: Mon Jun  8 08:11:56 2015
+# Generated: Mon Jun  8 18:27:30 2015
 ##################################################
 
 from gnuradio import analog
@@ -28,7 +28,9 @@ class vhf_tx(gr.top_block):
         self.interpolation = interpolation = 80
         self.wpm = wpm = 15
         self.tune = tune = 100
+        self.rf_gain = rf_gain = 0
         self.offset = offset = 200000
+        self.if_gain = if_gain = 20
         self.cw_vector = cw_vector = (1,0,1,0,1,0,1,1,1, 0,0,0, 1,0,1,0,1,0,1,1,1, 0,0,0, 1,0,1,0,1,0,1,1,1, 0,0,0,0,0,0,0, 1,1,1,0,1,0,1, 0,0,0, 1, 0,0,0,0,0,0,0, 1,0,1,0,1,0,1,1,1, 0,0,0, 1, 0,0,0, 1,0,1,0,1,0,1,1,1,0,1,1,1, 0,0,0, 1,0,1, 0,0,0, 1,0,1,1,1,0,1, 0,0,0, 1,0,1,1,1,0,1, 0,0,0,0,0,0,0, 1,1,1, 0,0,0, 1, 0,0,0, 1,0,1,0,1, 0,0,0, 1,1,1, 0,0,0, 1,0,1, 0,0,0, 1,1,1,0,1, 0,0,0, 1,1,1,0,1,1,1,0,1, 0,0,0,0,0,0,0)
         self.correction = correction = 0
         self.band = band = 432
@@ -47,8 +49,8 @@ class vhf_tx(gr.top_block):
         self.out.set_sample_rate(samp_rate)
         self.out.set_center_freq(band * 1e6 + 100000 - offset, 0)
         self.out.set_freq_corr(correction, 0)
-        self.out.set_gain(1, 0)
-        self.out.set_if_gain(19, 0)
+        self.out.set_gain(rf_gain, 0)
+        self.out.set_if_gain(if_gain, 0)
         self.out.set_bb_gain(20, 0)
         self.out.set_antenna("", 0)
         self.out.set_bandwidth(0, 0)
@@ -99,12 +101,26 @@ class vhf_tx(gr.top_block):
         self.tune = tune
         self.offset_osc.set_frequency(self.tune * 1000 + 100000)
 
+    def get_rf_gain(self):
+        return self.rf_gain
+
+    def set_rf_gain(self, rf_gain):
+        self.rf_gain = rf_gain
+        self.out.set_gain(self.rf_gain, 0)
+
     def get_offset(self):
         return self.offset
 
     def set_offset(self, offset):
         self.offset = offset
         self.out.set_center_freq(self.band * 1e6 + 100000 - self.offset, 0)
+
+    def get_if_gain(self):
+        return self.if_gain
+
+    def set_if_gain(self, if_gain):
+        self.if_gain = if_gain
+        self.out.set_if_gain(self.if_gain, 0)
 
     def get_cw_vector(self):
         return self.cw_vector

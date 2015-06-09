@@ -35,11 +35,13 @@ class vhf_rx_tx(vhf_rx):
         self.tx = vhf_tx()
 
     def set_tx_text(self, tx_text):
-        if self.band == self.cal_freq:
+        if self.band == self.cal_band:
             return
 
         self.stop()
         self.wait()
+        self.tx.set_rf_gain(14 if self.amp_enable else 0)
+        self.tx.set_if_gain(self.tx_gain)
         self.tx.set_correction(self.correction)
         self.tx.set_band(self.band)
         self.tx.set_tune(self.tune)

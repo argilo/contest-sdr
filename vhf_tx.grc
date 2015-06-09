@@ -193,6 +193,33 @@
     </param>
     <param>
       <key>_coordinate</key>
+      <value>(207, 509)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>if_gain</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>20</value>
+    </param>
+  </block>
+  <block>
+    <key>variable</key>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
       <value>(15, 394)</value>
     </param>
     <param>
@@ -233,6 +260,33 @@
     <param>
       <key>value</key>
       <value>200000</value>
+    </param>
+  </block>
+  <block>
+    <key>variable</key>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(212, 439)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>rf_gain</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>0</value>
     </param>
   </block>
   <block>
@@ -619,11 +673,11 @@
     </param>
     <param>
       <key>if_gain0</key>
-      <value>19</value>
+      <value>if_gain</value>
     </param>
     <param>
       <key>gain0</key>
-      <value>1</value>
+      <value>rf_gain</value>
     </param>
     <param>
       <key>ant10</key>
