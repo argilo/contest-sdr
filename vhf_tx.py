@@ -1,8 +1,9 @@
 #!/usr/bin/env python2
+# -*- coding: utf-8 -*-
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Vhf Tx
-# Generated: Mon Jun  8 18:27:30 2015
+# Generated: Fri Jun  3 19:21:51 2016
 ##################################################
 
 from gnuradio import analog
@@ -15,6 +16,7 @@ from gnuradio.filter import firdes
 from optparse import OptionParser
 import osmosdr
 import time
+
 
 class vhf_tx(gr.top_block):
 
@@ -60,17 +62,18 @@ class vhf_tx(gr.top_block):
         self.cw_vector_source = blocks.vector_source_c(cw_vector, False, 1, [])
         self.cw_repeat = blocks.repeat(gr.sizeof_gr_complex*1, int(1.2 * audio_rate / wpm))
         self.click_filter = filter.single_pole_iir_filter_cc(1e-2, 1)
+        self.blocks_add_const_vxx_0 = blocks.add_const_vcc((0.000001, ))
 
         ##################################################
         # Connections
         ##################################################
-        self.connect((self.click_filter, 0), (self.resamp, 0))    
+        self.connect((self.blocks_add_const_vxx_0, 0), (self.resamp, 0))    
+        self.connect((self.click_filter, 0), (self.blocks_add_const_vxx_0, 0))    
         self.connect((self.cw_repeat, 0), (self.click_filter, 0))    
         self.connect((self.cw_vector_source, 0), (self.cw_repeat, 0))    
         self.connect((self.mixer, 0), (self.out, 0))    
         self.connect((self.offset_osc, 0), (self.mixer, 0))    
         self.connect((self.resamp, 0), (self.mixer, 1))    
-
 
     def get_samp_rate(self):
         return self.samp_rate
@@ -78,8 +81,8 @@ class vhf_tx(gr.top_block):
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
         self.set_audio_rate(self.samp_rate / self.interpolation)
-        self.offset_osc.set_sampling_freq(self.samp_rate)
         self.out.set_sample_rate(self.samp_rate)
+        self.offset_osc.set_sampling_freq(self.samp_rate)
 
     def get_interpolation(self):
         return self.interpolation
@@ -93,6 +96,7 @@ class vhf_tx(gr.top_block):
 
     def set_wpm(self, wpm):
         self.wpm = wpm
+        self.cw_repeat.set_interpolation(int(1.2 * self.audio_rate / self.wpm))
 
     def get_tune(self):
         return self.tune
@@ -127,7 +131,7 @@ class vhf_tx(gr.top_block):
 
     def set_cw_vector(self, cw_vector):
         self.cw_vector = cw_vector
-        self.cw_vector_source.set_data(self.cw_vector)
+        self.cw_vector_source.set_data(self.cw_vector, [])
 
     def get_correction(self):
         return self.correction
@@ -148,11 +152,15 @@ class vhf_tx(gr.top_block):
 
     def set_audio_rate(self, audio_rate):
         self.audio_rate = audio_rate
+        self.cw_repeat.set_interpolation(int(1.2 * self.audio_rate / self.wpm))
+
+
+def main(top_block_cls=vhf_tx, options=None):
+
+    tb = top_block_cls()
+    tb.start()
+    tb.wait()
 
 
 if __name__ == '__main__':
-    parser = OptionParser(option_class=eng_option, usage="%prog: [options]")
-    (options, args) = parser.parse_args()
-    tb = vhf_tx()
-    tb.start()
-    tb.wait()
+    main()
