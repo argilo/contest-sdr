@@ -41,11 +41,17 @@ Run the following:
 PACKER_CACHE_DIR=/tmp packer build -only=qemu packer/base-xenial64.json
 zcat build/2016-06-31-12-34/base-xenial64.raw.gz | sudo dd of=/dev/sdb bs=4M
 ```
-Boot from the flash drive.
+Boot from the flash drive and double click the "Contest SDR" icon on the
+desktop.
+
+## Thanks
+
+The packer template is adapted from Tyler Tidman's
+[packer-build](https://github.com/tylert/packer-build) project.
 
 ## License
 
-Copyright 2015 Clayton Smith
+Copyright 2015-2016 Clayton Smith
 
 This file is part of contest-sdr
 
