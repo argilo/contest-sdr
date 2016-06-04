@@ -28,6 +28,21 @@ To transmit CW, type your message into the "CW to send" box and press
 enter. Once transmission is complete, the box will empty and the
 waterfalls will start running again.
 
+## Building a bootable USB flash drive
+
+Install the dependencies:
+
+* Packer https://www.packer.io/
+* qemu-kvm
+* apt-cacher-ng
+
+Run the following:
+```
+PACKER_CACHE_DIR=/tmp packer build -only=qemu packer/base-xenial64.json
+zcat build/2016-06-31-12-34/base-xenial64.raw.gz | sudo dd of=/dev/sdb bs=4M
+```
+Boot from the flash drive.
+
 ## License
 
 Copyright 2015 Clayton Smith

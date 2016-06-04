@@ -1,0 +1,7 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Contest SDR
+Exec=bash -c ". /home/contest/pybombs/setup_env.sh ; cd /home/contest/contest-sdr ; ./vhf_transceiver.py"
+Categories=Development;
+Icon=audio-headset
