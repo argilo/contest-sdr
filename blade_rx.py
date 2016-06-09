@@ -3,7 +3,7 @@
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Blade Rx
-# Generated: Tue Jun  7 07:10:11 2016
+# Generated: Wed Jun  8 20:49:35 2016
 ##################################################
 
 if __name__ == '__main__':
@@ -92,8 +92,8 @@ class blade_rx(gr.top_block, Qt.QWidget):
         self._bb_gain_range = Range(5, 60, 1, 30, 200)
         self._bb_gain_win = RangeWidget(self._bb_gain_range, self.set_bb_gain, "BB gain", "counter_slider", float)
         self.top_grid_layout.addWidget(self._bb_gain_win, 0,4,1,1)
-        self._band_options = [cal_band, 50, 144, 222, 432, 903, 1296, 2304, 3456]
-        self._band_labels = ["Calib.", "50", "144", "222", "432", "903", "1296", "2304", "3456"]
+        self._band_options = [cal_band, 432, 903, 1296, 2304, 3456]
+        self._band_labels = ["Calib.", "432", "903", "1296", "2304", "3456"]
         self._band_tool_bar = Qt.QToolBar(self)
         self._band_tool_bar.addWidget(Qt.QLabel("Band"+": "))
         self._band_combo_box = Qt.QComboBox()

@@ -137,7 +137,7 @@
     </param>
     <param>
       <key>labels</key>
-      <value>["Calib.", "50", "144", "222", "432", "903", "1296", "2304", "3456"]</value>
+      <value>["Calib.", "432", "903", "1296", "2304", "3456"]</value>
     </param>
     <param>
       <key>num_opts</key>
@@ -165,7 +165,7 @@
     </param>
     <param>
       <key>options</key>
-      <value>[cal_band, 50, 144, 222, 432, 903, 1296, 2304, 3456]</value>
+      <value>[cal_band, 432, 903, 1296, 2304, 3456]</value>
     </param>
     <param>
       <key>orient</key>
