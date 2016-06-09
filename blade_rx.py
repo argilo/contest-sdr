@@ -3,7 +3,7 @@
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Blade Rx
-# Generated: Wed Jun  8 20:49:35 2016
+# Generated: Wed Jun  8 20:57:16 2016
 ##################################################
 
 if __name__ == '__main__':
@@ -122,8 +122,8 @@ class blade_rx(gr.top_block, Qt.QWidget):
         self.top_grid_layout.addWidget(self._tx_text_tool_bar, 1,0,1,4)
         self.rf_in = osmosdr.source( args="numchan=" + str(1) + " " + "" )
         self.rf_in.set_sample_rate(samp_rate)
-        self.rf_in.set_center_freq(band * 1e6 + 100000 - offset, 0)
-        self.rf_in.set_freq_corr(correction, 0)
+        self.rf_in.set_center_freq(band * (1 + correction / 1e6) * 1e6 + 100000 - offset, 0)
+        self.rf_in.set_freq_corr(0, 0)
         self.rf_in.set_dc_offset_mode(0, 0)
         self.rf_in.set_iq_balance_mode(0, 0)
         self.rf_in.set_gain_mode(False, 0)
@@ -305,7 +305,7 @@ class blade_rx(gr.top_block, Qt.QWidget):
 
     def set_offset(self, offset):
         self.offset = offset
-        self.rf_in.set_center_freq(self.band * 1e6 + 100000 - self.offset, 0)
+        self.rf_in.set_center_freq(self.band * (1 + self.correction / 1e6) * 1e6 + 100000 - self.offset, 0)
         self.offset_osc_1.set_frequency(-self.offset)
 
     def get_decimation(self):
@@ -322,7 +322,7 @@ class blade_rx(gr.top_block, Qt.QWidget):
 
     def set_correction(self, correction):
         self.correction = correction
-        self.rf_in.set_freq_corr(self.correction, 0)
+        self.rf_in.set_center_freq(self.band * (1 + self.correction / 1e6) * 1e6 + 100000 - self.offset, 0)
 
     def get_bb_gain(self):
         return self.bb_gain
@@ -337,7 +337,7 @@ class blade_rx(gr.top_block, Qt.QWidget):
     def set_band(self, band):
         self.band = band
         self._band_callback(self.band)
-        self.rf_in.set_center_freq(self.band * 1e6 + 100000 - self.offset, 0)
+        self.rf_in.set_center_freq(self.band * (1 + self.correction / 1e6) * 1e6 + 100000 - self.offset, 0)
 
 
 def main(top_block_cls=blade_rx, options=None):

@@ -3,7 +3,7 @@
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Blade Tx
-# Generated: Mon Jun  6 23:11:37 2016
+# Generated: Wed Jun  8 20:57:35 2016
 ##################################################
 
 from gnuradio import analog
@@ -49,8 +49,8 @@ class blade_tx(gr.top_block):
         )
         self.out = osmosdr.sink( args="numchan=" + str(1) + " " + "" )
         self.out.set_sample_rate(samp_rate)
-        self.out.set_center_freq(band * 1e6 + 100000 - offset, 0)
-        self.out.set_freq_corr(correction, 0)
+        self.out.set_center_freq(band * (1 + correction / 1e6) * 1e6 + 100000 - offset, 0)
+        self.out.set_freq_corr(0, 0)
         self.out.set_gain(rf_gain, 0)
         self.out.set_if_gain(0, 0)
         self.out.set_bb_gain(bb_gain, 0)
@@ -117,7 +117,7 @@ class blade_tx(gr.top_block):
 
     def set_offset(self, offset):
         self.offset = offset
-        self.out.set_center_freq(self.band * 1e6 + 100000 - self.offset, 0)
+        self.out.set_center_freq(self.band * (1 + self.correction / 1e6) * 1e6 + 100000 - self.offset, 0)
 
     def get_cw_vector(self):
         return self.cw_vector
@@ -131,7 +131,7 @@ class blade_tx(gr.top_block):
 
     def set_correction(self, correction):
         self.correction = correction
-        self.out.set_freq_corr(self.correction, 0)
+        self.out.set_center_freq(self.band * (1 + self.correction / 1e6) * 1e6 + 100000 - self.offset, 0)
 
     def get_bb_gain(self):
         return self.bb_gain
@@ -145,7 +145,7 @@ class blade_tx(gr.top_block):
 
     def set_band(self, band):
         self.band = band
-        self.out.set_center_freq(self.band * 1e6 + 100000 - self.offset, 0)
+        self.out.set_center_freq(self.band * (1 + self.correction / 1e6) * 1e6 + 100000 - self.offset, 0)
 
     def get_audio_rate(self):
         return self.audio_rate

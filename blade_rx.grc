@@ -1654,11 +1654,11 @@
     </param>
     <param>
       <key>corr0</key>
-      <value>correction</value>
+      <value>0</value>
     </param>
     <param>
       <key>freq0</key>
-      <value>band * 1e6 + 100000 - offset</value>
+      <value>band * (1 + correction / 1e6) * 1e6 + 100000 - offset</value>
     </param>
     <param>
       <key>gain_mode0</key>
