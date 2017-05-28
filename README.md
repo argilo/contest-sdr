@@ -7,16 +7,17 @@ The intent of this project is to turn a HackRF (or other SDR board)
 into a multi-band transceiver for use in amateur radio contests such as
 the ARRL June VHF contest. At present it only supports CW.
 
-At the moment, it depends on patches to hackrf and gr-osmosdr to add
-support for transmit/receive switching:
+To use it with a HackRF, you'll need to use a patched version of
+gr-osmosdr that adds support for transmit/receive switching:
 
-* https://github.com/argilo/hackrf/tree/allow-tr-switching
 * https://github.com/argilo/gr-osmosdr/tree/allow-tr-switching
+
+Other SDR boards (USRP, BladeRF, etc.) should work without the patch.
 
 ## Usage
 
-Install GNU Radio, and build hackrf and gr-osmosdr using the
-"allow-tr-switching" branches indicated above. This can be accomplished
+Install GNU Radio. If necessary, build gr-osmosdr using the
+"allow-tr-switching" branch indicated above. This can be accomplished
 most easily using PyBOMBS.
 
 The main transceiver application is vhf_transceiver.py, which can be
@@ -51,7 +52,7 @@ The packer template is adapted from Tyler Tidman's
 
 ## License
 
-Copyright 2015-2016 Clayton Smith
+Copyright 2015-2017 Clayton Smith
 
 This file is part of contest-sdr
 

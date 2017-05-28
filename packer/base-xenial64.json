@@ -308,6 +308,8 @@
       "binary": false,
       "execute_command": "echo '{{user `ssh_password`}}' | {{.Vars}} sudo -E -S sh '{{.Path}}'",
       "inline": [
+        "apt update",
+        "apt upgrade -y",
         "echo [SeatDefaults] >> /etc/lightdm/lightdm.conf",
         "echo user-session=xubuntu >> /etc/lightdm/lightdm.conf",
         "echo autologin-user=contest >> /etc/lightdm/lightdm.conf",
@@ -330,17 +332,15 @@
         "pybombs prefix init /home/contest/pybombs -a myprefix",
         "pybombs config default_prefix myprefix",
         "pybombs config satisfy_order src,native",
+        "pybombs install limesuite",
         "pybombs install gqrx",
-        "cd ~/pybombs/src/hackrf/host/build/",
-        "git remote add argilo https://github.com/argilo/hackrf.git",
-        "git fetch argilo",
-        "git checkout allow-tr-switching",
-        "make && make install",
         "cd ~/pybombs/src/gr-osmosdr/build/",
         "git remote add argilo https://github.com/argilo/gr-osmosdr.git",
         "git fetch argilo",
         "git checkout allow-tr-switching",
-        "make && make install"
+        ". ~/pybombs/setup_env.sh",
+        "make && make install",
+        "~/pybombs/lib/uhd/utils/uhd_images_downloader.py"
       ],
       "inline_shebang": "/bin/sh -e",
       "skip_clean": false,
@@ -366,6 +366,7 @@
         "cp pybombs/src/rtl-sdr/rtl-sdr.rules /etc/udev/rules.d/",
         "cp pybombs/src/uhd/host/utils/uhd-usrp.rules /etc/udev/rules.d/",
         "cp pybombs/src/hackrf/host/libhackrf/53-hackrf.rules /etc/udev/rules.d/",
+        "cp pybombs/src/limesuite/udev-rules/64-limesuite.rules /etc/udev/rules.d/",
         "sed s/@BLADERF_GROUP@/plugdev/ pybombs/src/bladeRF/host/misc/udev/88-nuand.rules.in > /etc/udev/rules.d/88-nuand.rules",
         "chmod 755 Desktop/contest-sdr.desktop",
         "apt-get clean"
