@@ -40,7 +40,7 @@ Install the dependencies:
 Run the following:
 ```
 PACKER_CACHE_DIR=/tmp packer build -only=qemu packer/base-xenial64.json
-zcat build/2016-06-31-12-34/base-xenial64.raw.gz | sudo dd of=/dev/sdb bs=4M
+zcat build/2018-04-28-20-03/base-xenial64.raw.gz | sudo dd of=/dev/sdb bs=4M
 ```
 Boot from the flash drive and double click the "Contest SDR" icon on the
 desktop.
@@ -52,7 +52,7 @@ The packer template is adapted from Tyler Tidman's
 
 ## License
 
-Copyright 2015-2017 Clayton Smith
+Copyright 2015-2018 Clayton Smith
 
 This file is part of contest-sdr
 
