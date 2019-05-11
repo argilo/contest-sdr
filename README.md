@@ -52,7 +52,7 @@ The packer template is adapted from Tyler Tidman's
 
 ## License
 
-Copyright 2015-2018 Clayton Smith
+Copyright 2015-2019 Clayton Smith
 
 This file is part of contest-sdr
 
