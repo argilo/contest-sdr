@@ -322,7 +322,7 @@
     "boot_wait": "3s",
     "communicator": "ssh",
     "description": "Base box for 64-bit x86 Ubuntu Bionic Beaver 18.04.2 LTS",
-    "disk_size": "24000",
+    "disk_size": "20000",
     "domain": "",
     "headless": "false",
     "http_directory": ".",
