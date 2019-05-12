@@ -39,8 +39,8 @@ Install the dependencies:
 
 Run the following:
 ```
-PACKER_CACHE_DIR=/tmp packer build -only=qemu packer/base-xenial64.json
-zcat build/2018-04-28-20-03/base-xenial64.raw.gz | sudo dd of=/dev/sdb bs=4M
+PACKER_CACHE_DIR=/tmp packer build -only=qemu packer/base-bionic.json
+zcat build/2019-04-28-20-03/base-bionic.raw.gz | sudo dd of=/dev/sdb bs=4M
 ```
 Boot from the flash drive and double click the "Contest SDR" icon on the
 desktop.
