@@ -116,7 +116,7 @@
         ],
         [
           "-smp",
-          "2"
+          "4"
         ]
       ],
       "shutdown_command": "echo '{{user `ssh_password`}}' | sudo -E -S poweroff",
