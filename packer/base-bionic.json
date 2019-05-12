@@ -255,7 +255,8 @@
         "git fetch argilo",
         "git checkout allow-tr-switching",
         ". ~/pybombs/setup_env.sh",
-        "make && make install",
+        "make",
+        "make install",
         "~/pybombs/lib/uhd/utils/uhd_images_downloader.py"
       ],
       "inline_shebang": "/bin/sh -e",
