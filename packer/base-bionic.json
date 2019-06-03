@@ -284,7 +284,7 @@
         "cp pybombs/src/uhd/host/utils/uhd-usrp.rules /etc/udev/rules.d/",
         "cp pybombs/src/hackrf/host/libhackrf/53-hackrf.rules /etc/udev/rules.d/",
         "cp pybombs/src/limesuite/udev-rules/64-limesuite.rules /etc/udev/rules.d/",
-        "sed s/@BLADERF_GROUP@/plugdev/ pybombs/src/bladeRF/host/misc/udev/88-nuand.rules.in > /etc/udev/rules.d/88-nuand.rules",
+        "sed s/@BLADERF_GROUP@/plugdev/ pybombs/src/bladeRF/host/misc/udev/88-nuand-bladerf1.rules.in > /etc/udev/rules.d/88-nuand.rules",
         "chmod 755 Desktop/contest-sdr.desktop",
         "apt-get clean"
       ],
