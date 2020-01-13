@@ -1,6 +1,6 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 #
-# Copyright 2015 Clayton Smith
+# Copyright 2015,2020 Clayton Smith
 #
 # This file is part of contest-sdr
 #
@@ -23,11 +23,12 @@ from vhf_rx import vhf_rx
 from vhf_tx import vhf_tx
 from morse_table import morse_seq
 
-from PyQt4 import Qt
+from PyQt5 import Qt
 from gnuradio.eng_option import eng_option
 from gnuradio import gr
 from optparse import OptionParser
 from distutils.version import StrictVersion
+import signal
 
 class vhf_rx_tx(vhf_rx):
     def __init__(self):
@@ -62,20 +63,31 @@ if __name__ == '__main__':
             x11 = ctypes.cdll.LoadLibrary('libX11.so')
             x11.XInitThreads()
         except:
-            print "Warning: failed to XInitThreads()"
+            print("Warning: failed to XInitThreads()")
 
 if __name__ == '__main__':
-    parser = OptionParser(option_class=eng_option, usage="%prog: [options]")
-    (options, args) = parser.parse_args()
-    if(StrictVersion(Qt.qVersion()) >= StrictVersion("4.5.0")):
-        Qt.QApplication.setGraphicsSystem(gr.prefs().get_string('qtgui','style','raster'))
+
+    if StrictVersion("4.5.0") <= StrictVersion(Qt.qVersion()) < StrictVersion("5.0.0"):
+        style = gr.prefs().get_string('qtgui', 'style', 'raster')
+        Qt.QApplication.setGraphicsSystem(style)
     qapp = Qt.QApplication(sys.argv)
+
     tb = vhf_rx_tx()
     tb.start()
     tb.show()
+
+    def sig_handler(sig=None, frame=None):
+        Qt.QApplication.quit()
+
+    signal.signal(signal.SIGINT, sig_handler)
+    signal.signal(signal.SIGTERM, sig_handler)
+
+    timer = Qt.QTimer()
+    timer.start(500)
+    timer.timeout.connect(lambda: None)
+
     def quitting():
         tb.stop()
         tb.wait()
-    qapp.connect(qapp, Qt.SIGNAL("aboutToQuit()"), quitting)
+    qapp.aboutToQuit.connect(quitting)
     qapp.exec_()
-    tb = None #to clean up Qt widgets
