@@ -183,7 +183,7 @@ class vhf_rx(gr.top_block, Qt.QWidget):
         for c in range(6, 7):
             self.top_grid_layout.setColumnStretch(c, 1)
         self.rf_in = osmosdr.source(
-            args="numchan=" + str(1) + " " + ''
+            args="numchan=" + str(1) + " " + 'hackrf=0'
         )
         self.rf_in.set_time_unknown_pps(osmosdr.time_spec_t())
         self.rf_in.set_sample_rate(samp_rate)

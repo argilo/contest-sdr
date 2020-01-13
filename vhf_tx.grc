@@ -319,7 +319,7 @@ blocks:
     ant7: ''
     ant8: ''
     ant9: ''
-    args: ''
+    args: hackrf=0
     bb_gain0: '20'
     bb_gain1: '20'
     bb_gain10: '20'
@@ -540,7 +540,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [848, 52.0]
+    coordinate: [848, 44.0]
     rotation: 0
     state: enabled
 - name: resamp

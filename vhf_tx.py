@@ -50,7 +50,7 @@ class vhf_tx(gr.top_block):
                 taps=None,
                 fractional_bw=None)
         self.out = osmosdr.sink(
-            args="numchan=" + str(1) + " " + ''
+            args="numchan=" + str(1) + " " + 'hackrf=0'
         )
         self.out.set_time_unknown_pps(osmosdr.time_spec_t())
         self.out.set_sample_rate(samp_rate)

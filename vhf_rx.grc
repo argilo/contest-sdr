@@ -530,7 +530,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [296, 340.0]
+    coordinate: [296, 348.0]
     rotation: 0
     state: enabled
 - name: offset_osc_2
@@ -592,7 +592,7 @@ blocks:
     ant7: ''
     ant8: ''
     ant9: ''
-    args: ''
+    args: hackrf=0
     bb_gain0: bb_gain
     bb_gain1: '20'
     bb_gain10: '20'
@@ -909,7 +909,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [232, 116.0]
+    coordinate: [232, 108.0]
     rotation: 0
     state: enabled
 - name: usb_filter
