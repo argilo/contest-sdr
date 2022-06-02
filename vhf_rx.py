@@ -26,7 +26,6 @@ from gnuradio import eng_notation
 from gnuradio import qtgui
 from gnuradio.filter import firdes
 import sip
-from gnuradio import analog
 from gnuradio import audio
 from gnuradio import blocks
 from gnuradio import filter
@@ -80,16 +79,18 @@ class vhf_rx(gr.top_block, Qt.QWidget):
         ##################################################
         # Variables
         ##################################################
-        self.cal_freq = cal_freq = 626309441
+        self.cal_freq = cal_freq = 626309441*0 + 482309441
+        self.samp_rate = samp_rate = 4000000
+        self.decimation = decimation = 20
         self.cal_band = cal_band = (cal_freq - 100e3) / 1e6
         self.tx_text = tx_text = ''
         self.tx_gain = tx_gain = 20
         self.tune = tune = 100
-        self.samp_rate = samp_rate = 4000000
         self.offset = offset = 200000
+        self.lp_taps_rf = lp_taps_rf = firdes.low_pass(1.0, samp_rate, 75000,25000, window.WIN_HAMMING, 6.76)
+        self.lp_taps_if = lp_taps_if = firdes.complex_band_pass(1.0, samp_rate / decimation, 200, 2800, 200, window.WIN_HAMMING, 6.76)
         self.lna_enable = lna_enable = False
         self.if_gain = if_gain = 16
-        self.decimation = decimation = 20
         self.correction = correction = 0
         self.bb_gain = bb_gain = 24
         self.band = band = cal_band
@@ -123,6 +124,13 @@ class vhf_rx(gr.top_block, Qt.QWidget):
             self.top_grid_layout.setRowStretch(r, 1)
         for c in range(3, 4):
             self.top_grid_layout.setColumnStretch(c, 1)
+        self._correction_range = Range(-20, 20, 0.2, 0, 200)
+        self._correction_win = RangeWidget(self._correction_range, self.set_correction, "PPM", "counter", float, QtCore.Qt.Horizontal)
+        self.top_grid_layout.addWidget(self._correction_win, 0, 1, 1, 1)
+        for r in range(0, 1):
+            self.top_grid_layout.setRowStretch(r, 1)
+        for c in range(1, 2):
+            self.top_grid_layout.setColumnStretch(c, 1)
         self._bb_gain_range = Range(0, 62, 2, 24, 200)
         self._bb_gain_win = RangeWidget(self._bb_gain_range, self.set_bb_gain, "BB gain", "counter_slider", float, QtCore.Qt.Horizontal)
         self.top_grid_layout.addWidget(self._bb_gain_win, 0, 4, 1, 1)
@@ -131,7 +139,7 @@ class vhf_rx(gr.top_block, Qt.QWidget):
         for c in range(4, 5):
             self.top_grid_layout.setColumnStretch(c, 1)
         # Create the options list
-        self._band_options = [626.209441, 50, 144, 222, 432, 903, 1296, 2304, 3456, 5760]
+        self._band_options = [482.209441, 50, 144, 222, 432, 903, 1296, 2304, 3456, 5760]
         # Create the labels list
         self._band_labels = ['Calib.', '50', '144', '222', '432', '903', '1296', '2304', '3456', '5760']
         # Create the combo box
@@ -151,16 +159,6 @@ class vhf_rx(gr.top_block, Qt.QWidget):
         for c in range(0, 1):
             self.top_grid_layout.setColumnStretch(c, 1)
         self.volume_mult = blocks.multiply_const_ff(10)
-        self.usb_filter = filter.fir_filter_ccc(
-            25,
-            firdes.complex_band_pass(
-                1,
-                samp_rate / decimation,
-                200,
-                2800,
-                200,
-                window.WIN_HAMMING,
-                6.76))
         self._tx_text_tool_bar = Qt.QToolBar(self)
         self._tx_text_tool_bar.addWidget(Qt.QLabel("CW to send" + ": "))
         self._tx_text_line_edit = Qt.QLineEdit(str(self.tx_text))
@@ -189,14 +187,10 @@ class vhf_rx(gr.top_block, Qt.QWidget):
                                   stream_args, tune_args, settings)
         self.soapy_hackrf_source_0.set_sample_rate(0, samp_rate)
         self.soapy_hackrf_source_0.set_bandwidth(0, 0)
-        self.soapy_hackrf_source_0.set_frequency(0, band * 1e6 + 100000 - offset)
+        self.soapy_hackrf_source_0.set_frequency(0, (band * 1e6 + 100000 - offset) * (1 + correction*1e-6))
         self.soapy_hackrf_source_0.set_gain(0, 'AMP', lna_enable)
         self.soapy_hackrf_source_0.set_gain(0, 'LNA', min(max(if_gain, 0.0), 40.0))
         self.soapy_hackrf_source_0.set_gain(0, 'VGA', min(max(bb_gain, 0.0), 62.0))
-        self.offset_osc_2 = analog.sig_source_c(samp_rate / decimation, analog.GR_COS_WAVE, 100000 - tune * 1000 + 700, 1, 0, 0)
-        self.offset_osc_1 = analog.sig_source_c(samp_rate, analog.GR_COS_WAVE, -offset, 1, 0, 0)
-        self.mixer_2 = blocks.multiply_vcc(1)
-        self.mixer_1 = blocks.multiply_vcc(1)
         self.interpolator = filter.rational_resampler_fff(
                 interpolation=6,
                 decimation=1,
@@ -241,23 +235,11 @@ class vhf_rx(gr.top_block, Qt.QWidget):
             self.top_grid_layout.setRowStretch(r, 1)
         for c in range(0, 7):
             self.top_grid_layout.setColumnStretch(c, 1)
-        self.if_filter = filter.fir_filter_ccf(
-            decimation,
-            firdes.low_pass(
-                1,
-                samp_rate,
-                75000,
-                25000,
-                window.WIN_HAMMING,
-                6.76))
+        self.freq_xlating_fir_filter_xxx_0 = filter.freq_xlating_fir_filter_ccc(25, lp_taps_if, 100000 - tune * 1000 + 700, samp_rate / decimation)
+        self.freq_xlating_fft_filter_ccc_0 = filter.freq_xlating_fft_filter_ccc(decimation, lp_taps_rf, offset, samp_rate)
+        self.freq_xlating_fft_filter_ccc_0.set_nthreads(1)
+        self.freq_xlating_fft_filter_ccc_0.declare_sample_delay(0)
         self.cx_to_real = blocks.complex_to_real(1)
-        self._correction_range = Range(-20, 20, 1, 0, 200)
-        self._correction_win = RangeWidget(self._correction_range, self.set_correction, "PPM", "counter", float, QtCore.Qt.Horizontal)
-        self.top_grid_layout.addWidget(self._correction_win, 0, 1, 1, 1)
-        for r in range(0, 1):
-            self.top_grid_layout.setRowStretch(r, 1)
-        for c in range(1, 2):
-            self.top_grid_layout.setColumnStretch(c, 1)
         self.audio_waterfall = qtgui.waterfall_sink_f(
             1024, #size
             window.WIN_BLACKMAN_hARRIS, #wintype
@@ -317,15 +299,11 @@ class vhf_rx(gr.top_block, Qt.QWidget):
         ##################################################
         self.connect((self.cx_to_real, 0), (self.audio_waterfall, 0))
         self.connect((self.cx_to_real, 0), (self.interpolator, 0))
-        self.connect((self.if_filter, 0), (self.if_waterfall, 0))
-        self.connect((self.if_filter, 0), (self.mixer_2, 1))
+        self.connect((self.freq_xlating_fft_filter_ccc_0, 0), (self.freq_xlating_fir_filter_xxx_0, 0))
+        self.connect((self.freq_xlating_fft_filter_ccc_0, 0), (self.if_waterfall, 0))
+        self.connect((self.freq_xlating_fir_filter_xxx_0, 0), (self.cx_to_real, 0))
         self.connect((self.interpolator, 0), (self.volume_mult, 0))
-        self.connect((self.mixer_1, 0), (self.if_filter, 0))
-        self.connect((self.mixer_2, 0), (self.usb_filter, 0))
-        self.connect((self.offset_osc_1, 0), (self.mixer_1, 1))
-        self.connect((self.offset_osc_2, 0), (self.mixer_2, 0))
-        self.connect((self.soapy_hackrf_source_0, 0), (self.mixer_1, 0))
-        self.connect((self.usb_filter, 0), (self.cx_to_real, 0))
+        self.connect((self.soapy_hackrf_source_0, 0), (self.freq_xlating_fft_filter_ccc_0, 0))
         self.connect((self.volume_mult, 0), (self.audio_out, 0))
 
 
@@ -343,6 +321,24 @@ class vhf_rx(gr.top_block, Qt.QWidget):
     def set_cal_freq(self, cal_freq):
         self.cal_freq = cal_freq
         self.set_cal_band((self.cal_freq - 100e3) / 1e6)
+
+    def get_samp_rate(self):
+        return self.samp_rate
+
+    def set_samp_rate(self, samp_rate):
+        self.samp_rate = samp_rate
+        self.set_lp_taps_if(firdes.complex_band_pass(1.0, self.samp_rate / self.decimation, 200, 2800, 200, window.WIN_HAMMING, 6.76))
+        self.set_lp_taps_rf(firdes.low_pass(1.0, self.samp_rate, 75000, 25000, window.WIN_HAMMING, 6.76))
+        self.if_waterfall.set_frequency_range(100000, self.samp_rate / self.decimation)
+        self.soapy_hackrf_source_0.set_sample_rate(0, self.samp_rate)
+
+    def get_decimation(self):
+        return self.decimation
+
+    def set_decimation(self, decimation):
+        self.decimation = decimation
+        self.set_lp_taps_if(firdes.complex_band_pass(1.0, self.samp_rate / self.decimation, 200, 2800, 200, window.WIN_HAMMING, 6.76))
+        self.if_waterfall.set_frequency_range(100000, self.samp_rate / self.decimation)
 
     def get_cal_band(self):
         return self.cal_band
@@ -369,27 +365,29 @@ class vhf_rx(gr.top_block, Qt.QWidget):
 
     def set_tune(self, tune):
         self.tune = tune
-        self.offset_osc_2.set_frequency(100000 - self.tune * 1000 + 700)
-
-    def get_samp_rate(self):
-        return self.samp_rate
-
-    def set_samp_rate(self, samp_rate):
-        self.samp_rate = samp_rate
-        self.if_filter.set_taps(firdes.low_pass(1, self.samp_rate, 75000, 25000, window.WIN_HAMMING, 6.76))
-        self.if_waterfall.set_frequency_range(100000, self.samp_rate / self.decimation)
-        self.offset_osc_1.set_sampling_freq(self.samp_rate)
-        self.offset_osc_2.set_sampling_freq(self.samp_rate / self.decimation)
-        self.soapy_hackrf_source_0.set_sample_rate(0, self.samp_rate)
-        self.usb_filter.set_taps(firdes.complex_band_pass(1, self.samp_rate / self.decimation, 200, 2800, 200, window.WIN_HAMMING, 6.76))
+        self.freq_xlating_fir_filter_xxx_0.set_center_freq(100000 - self.tune * 1000 + 700)
 
     def get_offset(self):
         return self.offset
 
     def set_offset(self, offset):
         self.offset = offset
-        self.offset_osc_1.set_frequency(-self.offset)
-        self.soapy_hackrf_source_0.set_frequency(0, self.band * 1e6 + 100000 - self.offset)
+        self.freq_xlating_fft_filter_ccc_0.set_center_freq(self.offset)
+        self.soapy_hackrf_source_0.set_frequency(0, (self.band * 1e6 + 100000 - self.offset) * (1 + self.correction*1e-6))
+
+    def get_lp_taps_rf(self):
+        return self.lp_taps_rf
+
+    def set_lp_taps_rf(self, lp_taps_rf):
+        self.lp_taps_rf = lp_taps_rf
+        self.freq_xlating_fft_filter_ccc_0.set_taps(self.lp_taps_rf)
+
+    def get_lp_taps_if(self):
+        return self.lp_taps_if
+
+    def set_lp_taps_if(self, lp_taps_if):
+        self.lp_taps_if = lp_taps_if
+        self.freq_xlating_fir_filter_xxx_0.set_taps(self.lp_taps_if)
 
     def get_lna_enable(self):
         return self.lna_enable
@@ -406,20 +404,12 @@ class vhf_rx(gr.top_block, Qt.QWidget):
         self.if_gain = if_gain
         self.soapy_hackrf_source_0.set_gain(0, 'LNA', min(max(self.if_gain, 0.0), 40.0))
 
-    def get_decimation(self):
-        return self.decimation
-
-    def set_decimation(self, decimation):
-        self.decimation = decimation
-        self.if_waterfall.set_frequency_range(100000, self.samp_rate / self.decimation)
-        self.offset_osc_2.set_sampling_freq(self.samp_rate / self.decimation)
-        self.usb_filter.set_taps(firdes.complex_band_pass(1, self.samp_rate / self.decimation, 200, 2800, 200, window.WIN_HAMMING, 6.76))
-
     def get_correction(self):
         return self.correction
 
     def set_correction(self, correction):
         self.correction = correction
+        self.soapy_hackrf_source_0.set_frequency(0, (self.band * 1e6 + 100000 - self.offset) * (1 + self.correction*1e-6))
 
     def get_bb_gain(self):
         return self.bb_gain
@@ -434,7 +424,7 @@ class vhf_rx(gr.top_block, Qt.QWidget):
     def set_band(self, band):
         self.band = band
         self._band_callback(self.band)
-        self.soapy_hackrf_source_0.set_frequency(0, self.band * 1e6 + 100000 - self.offset)
+        self.soapy_hackrf_source_0.set_frequency(0, (self.band * 1e6 + 100000 - self.offset) * (1 + self.correction*1e-6))
 
     def get_amp_enable(self):
         return self.amp_enable

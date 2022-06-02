@@ -8,7 +8,6 @@
 # Title: Vhf Tx
 # GNU Radio version: 3.10.2.0
 
-from gnuradio import analog
 from gnuradio import blocks
 from gnuradio import filter
 from gnuradio.filter import firdes
@@ -20,6 +19,7 @@ from argparse import ArgumentParser
 from gnuradio.eng_arg import eng_float, intx
 from gnuradio import eng_notation
 from gnuradio import soapy
+import math
 
 
 
@@ -57,7 +57,7 @@ class vhf_tx(gr.top_block):
                                   stream_args, tune_args, settings)
         self.soapy_hackrf_sink_0.set_sample_rate(0, samp_rate)
         self.soapy_hackrf_sink_0.set_bandwidth(0, 0)
-        self.soapy_hackrf_sink_0.set_frequency(0, band * 1e6 + 100000 - offset)
+        self.soapy_hackrf_sink_0.set_frequency(0, (band * 1e6 + 100000 - offset) * (1 + correction*1e-6))
         self.soapy_hackrf_sink_0.set_gain(0, 'AMP', rf_gain)
         self.soapy_hackrf_sink_0.set_gain(0, 'VGA', min(max(if_gain, 0.0), 47.0))
         self.resamp = filter.rational_resampler_ccc(
@@ -65,11 +65,10 @@ class vhf_tx(gr.top_block):
                 decimation=1,
                 taps=[],
                 fractional_bw=0)
-        self.offset_osc = analog.sig_source_c(samp_rate, analog.GR_COS_WAVE, tune * 1000 + 100000, 0.9, 0, 0)
-        self.mixer = blocks.multiply_vcc(1)
         self.cw_vector_source = blocks.vector_source_c(cw_vector, False, 1, [])
         self.cw_repeat = blocks.repeat(gr.sizeof_gr_complex*1, int(1.2 * audio_rate / wpm))
         self.click_filter = filter.single_pole_iir_filter_cc(1e-2, 1)
+        self.blocks_rotator_cc_0 = blocks.rotator_cc(2 * math.pi * (tune * 1000 + 100000) / samp_rate, False)
         self.blocks_add_const_vxx_0 = blocks.add_const_cc(0.000001)
 
 
@@ -77,12 +76,11 @@ class vhf_tx(gr.top_block):
         # Connections
         ##################################################
         self.connect((self.blocks_add_const_vxx_0, 0), (self.resamp, 0))
+        self.connect((self.blocks_rotator_cc_0, 0), (self.soapy_hackrf_sink_0, 0))
         self.connect((self.click_filter, 0), (self.blocks_add_const_vxx_0, 0))
         self.connect((self.cw_repeat, 0), (self.click_filter, 0))
         self.connect((self.cw_vector_source, 0), (self.cw_repeat, 0))
-        self.connect((self.mixer, 0), (self.soapy_hackrf_sink_0, 0))
-        self.connect((self.offset_osc, 0), (self.mixer, 0))
-        self.connect((self.resamp, 0), (self.mixer, 1))
+        self.connect((self.resamp, 0), (self.blocks_rotator_cc_0, 0))
 
 
     def get_samp_rate(self):
@@ -91,7 +89,7 @@ class vhf_tx(gr.top_block):
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
         self.set_audio_rate(self.samp_rate / self.interpolation)
-        self.offset_osc.set_sampling_freq(self.samp_rate)
+        self.blocks_rotator_cc_0.set_phase_inc(2 * math.pi * (self.tune * 1000 + 100000) / self.samp_rate)
         self.soapy_hackrf_sink_0.set_sample_rate(0, self.samp_rate)
 
     def get_interpolation(self):
@@ -113,7 +111,7 @@ class vhf_tx(gr.top_block):
 
     def set_tune(self, tune):
         self.tune = tune
-        self.offset_osc.set_frequency(self.tune * 1000 + 100000)
+        self.blocks_rotator_cc_0.set_phase_inc(2 * math.pi * (self.tune * 1000 + 100000) / self.samp_rate)
 
     def get_rf_gain(self):
         return self.rf_gain
@@ -127,7 +125,7 @@ class vhf_tx(gr.top_block):
 
     def set_offset(self, offset):
         self.offset = offset
-        self.soapy_hackrf_sink_0.set_frequency(0, self.band * 1e6 + 100000 - self.offset)
+        self.soapy_hackrf_sink_0.set_frequency(0, (self.band * 1e6 + 100000 - self.offset) * (1 + self.correction*1e-6))
 
     def get_if_gain(self):
         return self.if_gain
@@ -148,13 +146,14 @@ class vhf_tx(gr.top_block):
 
     def set_correction(self, correction):
         self.correction = correction
+        self.soapy_hackrf_sink_0.set_frequency(0, (self.band * 1e6 + 100000 - self.offset) * (1 + self.correction*1e-6))
 
     def get_band(self):
         return self.band
 
     def set_band(self, band):
         self.band = band
-        self.soapy_hackrf_sink_0.set_frequency(0, self.band * 1e6 + 100000 - self.offset)
+        self.soapy_hackrf_sink_0.set_frequency(0, (self.band * 1e6 + 100000 - self.offset) * (1 + self.correction*1e-6))
 
     def get_audio_rate(self):
         return self.audio_rate
