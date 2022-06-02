@@ -30,6 +30,7 @@ from optparse import OptionParser
 from distutils.version import StrictVersion
 import signal
 
+
 class vhf_rx_tx(vhf_rx):
     def __init__(self):
         super(vhf_rx_tx, self).__init__()
@@ -41,12 +42,12 @@ class vhf_rx_tx(vhf_rx):
 
         self.stop()
         self.wait()
-        self.tx.set_rf_gain(14 if self.amp_enable else 0)
+        self.tx.set_rf_gain(self.amp_enable)
         self.tx.set_if_gain(self.tx_gain)
         self.tx.set_correction(self.correction)
         self.tx.set_band(self.band)
         self.tx.set_tune(self.tune)
-        self.tx.set_cw_vector(morse_seq(tx_text))
+        self.tx.set_cw_vector(morse_seq(tx_text) + (0,)*10)
         self.tx.start()
         self.tx.wait()
         self.tx.stop()
@@ -54,6 +55,7 @@ class vhf_rx_tx(vhf_rx):
 
         self.tx_text = ""
         Qt.QMetaObject.invokeMethod(self._tx_text_line_edit, "setText", Qt.Q_ARG("QString", str(self.tx_text)))
+
 
 if __name__ == '__main__':
     import ctypes
