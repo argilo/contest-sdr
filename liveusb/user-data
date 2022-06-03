@@ -1,0 +1,14 @@
+#cloud-config
+autoinstall:
+  version: 1
+  update: yes
+  storage:
+    layout:
+      name: direct
+  identity:
+    hostname: contest-sdr
+    password: "$6$.vRK/TtPfFXVCfAl$a/AIho/TLHbnTcG5ZNUWZlx4tbEKzeL/O05GVr3TfWJ7xvllTzYfbPzvzuB04eLM.KN6Rw22yW5ezqLx/oWvm1" # contest
+    username: contest
+  packages:
+    - xubuntu-core
+    - gnuradio

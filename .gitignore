@@ -1,3 +1,4 @@
 *.pyc
 /build/
 /packer_cache/
+/liveusb/disk.img
