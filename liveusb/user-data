@@ -12,3 +12,16 @@ autoinstall:
   packages:
     - xubuntu-core
     - gnuradio
+    - uhd-host
+  late-commands:
+    - curtin in-target --target=/target -- apt-get -y purge gdm3
+    - echo [SeatDefaults] >> /target/etc/lightdm/lightdm.conf.d/login.conf
+    - echo user-session=xubuntu >> /target/etc/lightdm/lightdm.conf.d/login.conf
+    - echo autologin-user=contest >> /target/etc/lightdm/lightdm.conf.d/login.conf
+    - git clone https://github.com/argilo/contest-sdr.git /target/opt/contest-sdr
+    - mkdir -p /target/etc/skel/Desktop
+    - cp /target/opt/contest-sdr/liveusb/contest-sdr.desktop /target/etc/skel/Desktop/
+    - chmod u+x /target/etc/skel/Desktop/contest-sdr.desktop
+    - mkdir -p /target/etc/skel/.local/share/applications
+    - cp /target/opt/contest-sdr/liveusb/contest-sdr.desktop /target/etc/skel/.local/share/applications/
+    - curtin in-target --target=/target -- /usr/bin/uhd_images_downloader
