@@ -27,8 +27,8 @@ On an Ubuntu system:
 * Download https://releases.ubuntu.com/22.04/ubuntu-22.04-live-server-amd64.iso
   and place it in `~/Downloads/`
 * Install the qemu-system-x86 package: `sudo apt install qemu-system-x86`
-* Generate the Live USB image: `liveusb/create.sh`
-* Write the image to a flash drive (16 GB or larger): `sudo dd if=liveusb/disk.img of=/dev/sdb bs=4M`
+* Generate the live USB image: `liveusb/create.sh`
+* Write the image to a flash drive (16 GB or larger): `sudo dd if=liveusb/disk.img of=/dev/sdb bs=4M conv=fsync`
 
 Boot from the flash drive and double click the "Contest SDR" icon on the
 desktop.
