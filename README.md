@@ -22,24 +22,16 @@ waterfalls will start running again.
 
 ## Building a bootable USB flash drive
 
-Install the dependencies:
+On an Ubuntu system:
 
-* Packer https://www.packer.io/
-* qemu-kvm
-* apt-cacher-ng
+* Download https://releases.ubuntu.com/22.04/ubuntu-22.04-live-server-amd64.iso
+  and place it in `~/Downloads/`
+* Install the qemu-system-x86 package: `sudo apt install qemu-system-x86`
+* Generate the Live USB image: `liveusb/create.sh`
+* Write the image to a flash drive (16 GB or larger): `sudo dd if=liveusb/disk.img of=/dev/sdb bs=4M`
 
-Run the following:
-```
-PACKER_CACHE_DIR=/tmp packer build -only=qemu packer/base-bionic.json
-zcat build/2019-04-28-20-03/base-bionic.raw.gz | sudo dd of=/dev/sdb bs=4M
-```
 Boot from the flash drive and double click the "Contest SDR" icon on the
 desktop.
-
-## Thanks
-
-The packer template is adapted from Tyler Tidman's
-[packer-build](https://github.com/tylert/packer-build) project.
 
 ## License
 
