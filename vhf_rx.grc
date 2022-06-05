@@ -434,7 +434,7 @@ blocks:
   parameters:
     affinity: ''
     alias: ''
-    center_freq: 100000 - tune * 1000 + 700
+    center_freq: 100000 + tune * 1000 + 700
     comment: ''
     decim: '25'
     maxoutbuf: '0'

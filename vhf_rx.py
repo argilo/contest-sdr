@@ -235,7 +235,7 @@ class vhf_rx(gr.top_block, Qt.QWidget):
             self.top_grid_layout.setRowStretch(r, 1)
         for c in range(0, 7):
             self.top_grid_layout.setColumnStretch(c, 1)
-        self.freq_xlating_fir_filter_xxx_0 = filter.freq_xlating_fir_filter_ccc(25, lp_taps_if, 100000 - tune * 1000 + 700, samp_rate / decimation)
+        self.freq_xlating_fir_filter_xxx_0 = filter.freq_xlating_fir_filter_ccc(25, lp_taps_if, 100000 + tune * 1000 + 700, samp_rate / decimation)
         self.freq_xlating_fft_filter_ccc_0 = filter.freq_xlating_fft_filter_ccc(decimation, lp_taps_rf, offset, samp_rate)
         self.freq_xlating_fft_filter_ccc_0.set_nthreads(1)
         self.freq_xlating_fft_filter_ccc_0.declare_sample_delay(0)
@@ -365,7 +365,7 @@ class vhf_rx(gr.top_block, Qt.QWidget):
 
     def set_tune(self, tune):
         self.tune = tune
-        self.freq_xlating_fir_filter_xxx_0.set_center_freq(100000 - self.tune * 1000 + 700)
+        self.freq_xlating_fir_filter_xxx_0.set_center_freq(100000 + self.tune * 1000 + 700)
 
     def get_offset(self):
         return self.offset
