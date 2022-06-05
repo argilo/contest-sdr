@@ -118,7 +118,7 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: 626309441*0 + 482309441
+    value: '584309441'
   states:
     bus_sink: false
     bus_source: false
