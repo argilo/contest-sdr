@@ -12,6 +12,7 @@ autoinstall:
   packages:
     - xubuntu-core
     - gnuradio
+    - gqrx-sdr
     - uhd-host
   late-commands:
     - curtin in-target --target=/target -- apt-get -y purge gdm3
