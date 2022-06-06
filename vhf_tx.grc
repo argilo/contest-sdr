@@ -82,7 +82,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [312, 484.0]
+    coordinate: [232, 484.0]
     rotation: 0
     state: enabled
 - name: if_gain
@@ -94,7 +94,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [240, 484.0]
+    coordinate: [120, 484.0]
     rotation: 0
     state: enabled
 - name: interpolation
@@ -130,7 +130,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [152, 484.0]
+    coordinate: [120, 420.0]
     rotation: 0
     state: enabled
 - name: samp_rate
@@ -184,7 +184,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [952, 260.0]
+    coordinate: [864, 268.0]
     rotation: 180
     state: enabled
 - name: blocks_multiply_const_vxx_0
@@ -202,7 +202,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [536, 164.0]
+    coordinate: [448, 172.0]
     rotation: 0
     state: true
 - name: blocks_rotator_cc_0
@@ -219,7 +219,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [488, 264.0]
+    coordinate: [400, 272.0]
     rotation: 180
     state: true
 - name: click_filter
@@ -237,7 +237,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [896, 164.0]
+    coordinate: [808, 172.0]
     rotation: 0
     state: enabled
 - name: cw_repeat
@@ -255,7 +255,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [720, 164.0]
+    coordinate: [632, 172.0]
     rotation: 0
     state: enabled
 - name: cw_vector_source
@@ -275,7 +275,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [352, 148.0]
+    coordinate: [264, 156.0]
     rotation: 0
     state: enabled
 - name: import_0
@@ -308,7 +308,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [744, 236.0]
+    coordinate: [656, 244.0]
     rotation: 180
     state: enabled
 - name: soapy_hackrf_sink_0
@@ -328,7 +328,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [248, 280.0]
+    coordinate: [160, 288.0]
     rotation: 180
     state: true
 
