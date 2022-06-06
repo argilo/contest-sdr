@@ -104,7 +104,7 @@ class b200_rx(gr.top_block, Qt.QWidget):
             self.top_grid_layout.setRowStretch(r, 1)
         for c in range(4, 7):
             self.top_grid_layout.setColumnStretch(c, 1)
-        self._rx_gain_range = Range(0, 76, 2, 50, 200)
+        self._rx_gain_range = Range(0, 76, 1, 50, 200)
         self._rx_gain_win = RangeWidget(self._rx_gain_range, self.set_rx_gain, "RX gain", "slider", float, QtCore.Qt.Horizontal)
         self.top_grid_layout.addWidget(self._rx_gain_win, 0, 3, 1, 2)
         for r in range(0, 1):
