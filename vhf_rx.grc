@@ -47,7 +47,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [264, 500.0]
+    coordinate: [264, 436.0]
     rotation: 0
     state: enabled
 - name: band
@@ -296,7 +296,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [264, 612.0]
+    coordinate: [264, 548.0]
     rotation: 0
     state: enabled
 - name: tx_text
