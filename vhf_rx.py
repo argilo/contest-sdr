@@ -197,7 +197,7 @@ class vhf_rx(gr.top_block, Qt.QWidget):
                 taps=[],
                 fractional_bw=0)
         self.if_waterfall = qtgui.waterfall_sink_c(
-            1024, #size
+            2048, #size
             window.WIN_BLACKMAN_hARRIS, #wintype
             100000, #fc
             samp_rate / decimation, #bw

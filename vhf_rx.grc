@@ -478,7 +478,7 @@ blocks:
     color9: '0'
     comment: ''
     fc: '100000'
-    fftsize: '1024'
+    fftsize: '2048'
     freqhalf: 'True'
     grid: 'False'
     gui_hint: 3,0,1,7
