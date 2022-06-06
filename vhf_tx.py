@@ -69,6 +69,7 @@ class vhf_tx(gr.top_block):
         self.cw_repeat = blocks.repeat(gr.sizeof_gr_complex*1, int(1.2 * audio_rate / wpm))
         self.click_filter = filter.single_pole_iir_filter_cc(1e-2, 1)
         self.blocks_rotator_cc_0 = blocks.rotator_cc(2 * math.pi * (tune * 1000 + 100000) / samp_rate, False)
+        self.blocks_multiply_const_vxx_0 = blocks.multiply_const_cc(0.9)
         self.blocks_add_const_vxx_0 = blocks.add_const_cc(0.000001)
 
 
@@ -76,10 +77,11 @@ class vhf_tx(gr.top_block):
         # Connections
         ##################################################
         self.connect((self.blocks_add_const_vxx_0, 0), (self.resamp, 0))
+        self.connect((self.blocks_multiply_const_vxx_0, 0), (self.cw_repeat, 0))
         self.connect((self.blocks_rotator_cc_0, 0), (self.soapy_hackrf_sink_0, 0))
         self.connect((self.click_filter, 0), (self.blocks_add_const_vxx_0, 0))
         self.connect((self.cw_repeat, 0), (self.click_filter, 0))
-        self.connect((self.cw_vector_source, 0), (self.cw_repeat, 0))
+        self.connect((self.cw_vector_source, 0), (self.blocks_multiply_const_vxx_0, 0))
         self.connect((self.resamp, 0), (self.blocks_rotator_cc_0, 0))
 
 
