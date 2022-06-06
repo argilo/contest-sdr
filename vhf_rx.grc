@@ -61,7 +61,7 @@ blocks:
     label2: ''
     label3: ''
     label4: ''
-    labels: '["Calib.", "50", "144", "222", "432", "903", "1296", "2304", "3456",
+    labels: '["Calib.", "50", "144", "222", "432", "903", "1296", "2304", "3400",
       "5760"]'
     num_opts: '0'
     option0: '0'
@@ -69,7 +69,7 @@ blocks:
     option2: '2'
     option3: '3'
     option4: '4'
-    options: '[cal_band, 50, 144, 222, 432, 903, 1296, 2304, 3456, 5760]'
+    options: '[cal_band, 50, 144, 222, 432, 903, 1296, 2304, 3400, 5760]'
     orient: Qt.QVBoxLayout
     type: real
     value: cal_band

@@ -139,9 +139,9 @@ class vhf_rx(gr.top_block, Qt.QWidget):
         for c in range(4, 5):
             self.top_grid_layout.setColumnStretch(c, 1)
         # Create the options list
-        self._band_options = [584.209441, 50, 144, 222, 432, 903, 1296, 2304, 3456, 5760]
+        self._band_options = [584.209441, 50, 144, 222, 432, 903, 1296, 2304, 3400, 5760]
         # Create the labels list
-        self._band_labels = ['Calib.', '50', '144', '222', '432', '903', '1296', '2304', '3456', '5760']
+        self._band_labels = ['Calib.', '50', '144', '222', '432', '903', '1296', '2304', '3400', '5760']
         # Create the combo box
         self._band_tool_bar = Qt.QToolBar(self)
         self._band_tool_bar.addWidget(Qt.QLabel("Band" + ": "))
