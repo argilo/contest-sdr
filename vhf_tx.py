@@ -32,7 +32,7 @@ class vhf_tx(gr.top_block):
         ##################################################
         # Variables
         ##################################################
-        self.samp_rate = samp_rate = 4000000
+        self.samp_rate = samp_rate = 2000000
         self.interpolation = interpolation = 80
         self.wpm = wpm = 15
         self.tune = tune = 100

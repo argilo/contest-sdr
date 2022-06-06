@@ -47,7 +47,7 @@ class vhf_rx_tx(vhf_rx):
         self.tx.set_correction(self.correction)
         self.tx.set_band(self.band)
         self.tx.set_tune(self.tune)
-        self.tx.set_cw_vector(morse_seq(tx_text) + (0,)*10)
+        self.tx.set_cw_vector(morse_seq(tx_text) + (0,)*20)
         self.tx.start()
         self.tx.wait()
         self.tx.stop()
