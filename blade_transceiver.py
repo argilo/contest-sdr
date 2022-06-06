@@ -45,7 +45,7 @@ class blade_rx_tx(blade_rx):
         self.tx.set_correction(self.correction)
         self.tx.set_band(self.band)
         self.tx.set_tune(self.tune)
-        self.tx.set_cw_vector(morse_seq(tx_text))
+        self.tx.set_cw_vector(morse_seq(tx_text) + (0,)*5)
         self.tx.start()
         self.tx.wait()
         self.tx.stop()
