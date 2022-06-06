@@ -81,8 +81,8 @@ class b200_rx(gr.top_block, Qt.QWidget):
         # Variables
         ##################################################
         self.cal_freq = cal_freq = 584309441
-        self.samp_rate = samp_rate = 4000000
-        self.decimation = decimation = 20
+        self.samp_rate = samp_rate = 1000000
+        self.decimation = decimation = 5
         self.cal_band = cal_band = (cal_freq - 100e3) / 1e6
         self.tx_text = tx_text = ''
         self.tx_gain = tx_gain = 60

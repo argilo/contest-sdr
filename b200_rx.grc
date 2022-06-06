@@ -113,7 +113,7 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: '20'
+    value: '5'
   states:
     bus_sink: false
     bus_source: false
@@ -194,7 +194,7 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: '4000000'
+    value: '1000000'
   states:
     bus_sink: false
     bus_source: false
