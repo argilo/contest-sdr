@@ -15,7 +15,9 @@ and the SoapySDR driver for your target device is installed. On Ubuntu 22.04,
 simply run `sudo apt install gnuradio` to get an appropriate version of GNU
 Radio, SoapySDR and drivers.
 
-Run one of the following commands from the command line:
+Clone this repository: `git clone https://github.com/argilo/contest-sdr.git`
+
+From the `contest-sdr` directory, run one of the following commands:
 
 * `./b200_transceiver.py` — USRP B200
 * `./blade_transceiver.py` — BladeRF
