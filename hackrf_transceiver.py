@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# Copyright 2015,2020 Clayton Smith
+# Copyright 2015,2022 Clayton Smith
 #
 # This file is part of contest-sdr
 #
@@ -29,6 +29,7 @@ from gnuradio import gr
 from optparse import OptionParser
 from distutils.version import StrictVersion
 import signal
+import time
 
 
 class hackrf_rx_tx(hackrf_rx):
@@ -48,7 +49,9 @@ class hackrf_rx_tx(hackrf_rx):
         self.tx.set_band(self.band)
         self.tx.set_tune(self.tune)
         self.tx.set_cw_vector(morse_seq(tx_text) + (0,)*20)
+        time.sleep(0.05)
         self.tx.run()
+        time.sleep(0.05)
         self.start()
 
         self.tx_text = ""

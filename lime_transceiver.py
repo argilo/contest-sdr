@@ -29,6 +29,7 @@ from gnuradio import gr
 from optparse import OptionParser
 from distutils.version import StrictVersion
 import signal
+import time
 
 class lime_rx_tx(lime_rx):
     def __init__(self):
@@ -46,7 +47,9 @@ class lime_rx_tx(lime_rx):
         self.tx.set_band(self.band)
         self.tx.set_tune(self.tune)
         self.tx.set_cw_vector(morse_seq(tx_text))
+        time.sleep(0.05)
         self.tx.run()
+        time.sleep(0.05)
         self.start()
 
         self.tx_text = ""
