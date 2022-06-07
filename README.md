@@ -4,7 +4,7 @@ Author: Clayton Smith
 Email: <argilo@gmail.com>
 
 The intent of this project is to turn a transmit-capable SDR board (HackRF,
-BladeRF, PlutoSDR, USRP or LimeSDR) into a multi-band transceiver for use in
+BladeRF, PlutoSDR, USRP, or LimeSDR) into a multi-band transceiver for use in
 amateur radio contests such as the ARRL June VHF contest. At present it only
 supports CW.
 
