@@ -10,7 +10,9 @@ the ARRL June VHF contest. At present it only supports CW.
 ## Usage
 
 Install GNU Radio 3.10 or later. Make sure that SoapySDR support is included,
-and the SoapySDR driver for your target device is installed.
+and the SoapySDR driver for your target device is installed. On Ubuntu 22.04,
+simply run `sudo apt install gnuradio` to get an appropirate version and the
+required dependencies.
 
 Run one of the following commands from the command line:
 
