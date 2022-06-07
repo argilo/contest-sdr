@@ -8,6 +8,8 @@ BladeRF, PlutoSDR, USRP, or LimeSDR) into a multi-band transceiver for use in
 amateur radio contests such as the ARRL June VHF contest. At present it only
 supports CW.
 
+![Screenshot of the main Gqrx window](contest-sdr.png)
+
 ## Usage
 
 Install GNU Radio 3.10 or later. Make sure that SoapySDR support is included,
