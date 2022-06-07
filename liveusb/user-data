@@ -30,7 +30,7 @@ autoinstall:
     - mkdir -p /target/etc/skel/.local/share/applications
     - cp /target/opt/contest-sdr/liveusb/contest-sdr.desktop /target/etc/skel/.local/share/applications/
     - curtin in-target --target=/target -- /usr/bin/uhd_images_downloader
-    - cp /target/opt/contest-sdr/liveusb/*.rules /etc/udev/rules.d/
+    - cp /target/opt/contest-sdr/liveusb/udev/*.rules /etc/udev/rules.d/
     - git clone https://github.com/pothosware/SoapyPlutoSDR.git /target/opt/SoapyPlutoSDR
     - mkdir /target/opt/SoapyPlutoSDR/build
     - curtin in-target --target=/target -- cmake -DCMAKE_INSTALL_PREFIX=/usr -S /opt/SoapyPlutoSDR -B /opt/SoapyPlutoSDR/build
