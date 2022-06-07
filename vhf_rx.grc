@@ -135,9 +135,9 @@ blocks:
     min_len: '200'
     orient: QtCore.Qt.Horizontal
     rangeType: float
-    start: '-20'
+    start: '-30'
     step: '0.1'
-    stop: '20'
+    stop: '30'
     value: '0'
     widget: counter
   states:

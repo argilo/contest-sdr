@@ -111,7 +111,7 @@ class b200_rx(gr.top_block, Qt.QWidget):
             self.top_grid_layout.setRowStretch(r, 1)
         for c in range(3, 5):
             self.top_grid_layout.setColumnStretch(c, 1)
-        self._correction_range = Range(-20, 20, 0.1, 0, 200)
+        self._correction_range = Range(-30, 30, 0.1, 0, 200)
         self._correction_win = RangeWidget(self._correction_range, self.set_correction, "PPM", "counter", float, QtCore.Qt.Horizontal)
         self.top_grid_layout.addWidget(self._correction_win, 0, 1, 1, 1)
         for r in range(0, 1):
