@@ -19,8 +19,8 @@
 # the Free Software Foundation, Inc., 51 Franklin Street,
 # Boston, MA 02110-1301, USA.
 
-from vhf_rx import vhf_rx
-from vhf_tx import vhf_tx
+from hackrf_rx import hackrf_rx
+from hackrf_tx import hackrf_tx
 from morse_table import morse_seq
 
 from PyQt5 import Qt
@@ -31,10 +31,10 @@ from distutils.version import StrictVersion
 import signal
 
 
-class vhf_rx_tx(vhf_rx):
+class hackrf_rx_tx(hackrf_rx):
     def __init__(self):
-        super(vhf_rx_tx, self).__init__()
-        self.tx = vhf_tx()
+        super(hackrf_rx_tx, self).__init__()
+        self.tx = hackrf_tx()
 
     def set_tx_text(self, tx_text):
         if self.band == self.cal_band:
@@ -72,7 +72,7 @@ if __name__ == '__main__':
         Qt.QApplication.setGraphicsSystem(style)
     qapp = Qt.QApplication(sys.argv)
 
-    tb = vhf_rx_tx()
+    tb = hackrf_rx_tx()
     tb.start()
     tb.show()
 

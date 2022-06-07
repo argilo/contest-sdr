@@ -5,7 +5,7 @@
 # SPDX-License-Identifier: GPL-3.0
 #
 # GNU Radio Python Flow Graph
-# Title: Vhf Tx
+# Title: Hackrf Tx
 # GNU Radio version: 3.10.2.0
 
 from gnuradio import blocks
@@ -24,10 +24,10 @@ import math
 
 
 
-class vhf_tx(gr.top_block):
+class hackrf_tx(gr.top_block):
 
     def __init__(self):
-        gr.top_block.__init__(self, "Vhf Tx", catch_exceptions=True)
+        gr.top_block.__init__(self, "Hackrf Tx", catch_exceptions=True)
 
         ##################################################
         # Variables
@@ -167,7 +167,7 @@ class vhf_tx(gr.top_block):
 
 
 
-def main(top_block_cls=vhf_tx, options=None):
+def main(top_block_cls=hackrf_tx, options=None):
     tb = top_block_cls()
 
     def sig_handler(sig=None, frame=None):

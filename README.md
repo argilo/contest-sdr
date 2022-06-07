@@ -9,15 +9,23 @@ the ARRL June VHF contest. At present it only supports CW.
 
 ## Usage
 
-Install GNU Radio 3.10 or later.
+Install GNU Radio 3.10 or later. Make sure that SoapySDR support is included,
+and the SoapySDR driver for your target device is installed.
 
-The main transceiver application is vhf_transceiver.py, which can be
-run from the command line. It ties together the receive and transmit
-flow graphs (vhf_rx, vhf_tx) which are built with GNU Radio Companion.
-The GUI is part of the receive flow graph.
+Run one of the following commands from the command line:
+
+* `./b200_transceiver.py` — USRP B200
+* `./blade_transceiver.py` — BladeRF
+* `./hackrf_transceiver.py` — HackRF
+* `./lime_transceiver.py` — LimeSDR
+* `./pluto_transceiver.py` — PlutoSDR
+
+Each of these scripts ties together the corresponding `<device>_rx` (receive)
+and `<device>_tx` (transmit) flow graphs, which are built with GNU Radio
+Companion. The GUI is part of the receive flow graph.
 
 To transmit CW, type your message into the "CW to send" box and press
-enter. Once transmission is complete, the box will empty and the
+enter. Once transmission is complete, the box will empty and the receive
 waterfalls will start running again.
 
 ## Building a bootable USB flash drive
@@ -32,7 +40,9 @@ On an Ubuntu system:
 * Write the image to a flash drive (16 GB or larger): `sudo dd if=liveusb/disk.img of=/dev/sdb bs=4M conv=fsync`
 
 Boot from the flash drive and double click the "Contest SDR" icon on the
-desktop.
+desktop to run the HackRF application. For other SDRs, open a terminal, type
+`cd /opt/contest-sdr` and then run the appropriate `./<device>_transceiver.py`
+command.
 
 ## License
 
