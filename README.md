@@ -12,8 +12,8 @@ supports CW.
 
 Install GNU Radio 3.10 or later. Make sure that SoapySDR support is included,
 and the SoapySDR driver for your target device is installed. On Ubuntu 22.04,
-simply run `sudo apt install gnuradio` to get an appropirate version and the
-required dependencies.
+simply run `sudo apt install gnuradio` to get an appropriate version of GNU
+Radio, SoapySDR and drivers.
 
 Run one of the following commands from the command line:
 
