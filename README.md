@@ -24,6 +24,16 @@ Each of these scripts ties together the corresponding `<device>_rx` (receive)
 and `<device>_tx` (transmit) flow graphs, which are built with GNU Radio
 Companion. The GUI is part of the receive flow graph.
 
+When the application starts it will be in calibration mode, which uses the
+pilot tone of ATSC channel 33 (584.309441 MHz) to help adjust the PPM
+correction value. Adjust the PPM setting up or down until the pilot signal is
+at 100 kHz in the upper (IF) waterfall, and at 700 Hz in the lower (audio)
+waterfall.
+
+Next, select the band you would like to transmit on. Adjust the receive and
+transmit gains as desired. The audio scope (lower right) shows the received
+audio signal. If clipping occurs, reduce the receive gain.
+
 To transmit CW, type your message into the "CW to send" box and press
 enter. Once transmission is complete, the box will empty and the receive
 waterfalls will start running again.
