@@ -1,7 +1,7 @@
 [Desktop Entry]
 Version=1.0
 Type=Application
-Name=Contest SDR (LimSDR)
+Name=Contest SDR (LimeSDR)
 Path=/opt/contest-sdr
 Exec=./lime_transceiver.py
 Categories=Development;
