@@ -25,10 +25,10 @@ autoinstall:
     - echo autologin-user=contest >> /target/etc/lightdm/lightdm.conf.d/login.conf
     - git clone https://github.com/argilo/contest-sdr.git /target/opt/contest-sdr
     - mkdir -p /target/etc/skel/Desktop
-    - cp /target/opt/contest-sdr/liveusb/contest-sdr.desktop /target/etc/skel/Desktop/
-    - chmod u+x /target/etc/skel/Desktop/contest-sdr.desktop
+    - cp /target/opt/contest-sdr/liveusb/desktop/*.desktop /target/etc/skel/Desktop/
+    - chmod u+x /target/etc/skel/Desktop/*.desktop
     - mkdir -p /target/etc/skel/.local/share/applications
-    - cp /target/opt/contest-sdr/liveusb/contest-sdr.desktop /target/etc/skel/.local/share/applications/
+    - cp /target/opt/contest-sdr/liveusb/desktop/*.desktop /target/etc/skel/.local/share/applications/
     - mkdir -p /target/etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml
     - cp /target/opt/contest-sdr/liveusb/xfce4-screensaver.xml /target/etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/
     - curtin in-target --target=/target -- /usr/bin/uhd_images_downloader

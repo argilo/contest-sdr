@@ -40,9 +40,7 @@ On an Ubuntu system:
 * Write the image to a flash drive (16 GB or larger): `sudo dd if=liveusb/disk.img of=/dev/sdb bs=4M conv=fsync`
 
 Boot from the flash drive and double click the "Contest SDR" icon on the
-desktop to run the HackRF application. For other SDRs, open a terminal, type
-`cd /opt/contest-sdr` and then run the appropriate `./<device>_transceiver.py`
-command.
+desktop corresponding to your SDR device.
 
 ## License
 

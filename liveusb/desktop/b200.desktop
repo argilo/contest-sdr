@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Contest SDR (USRP)
+Path=/opt/contest-sdr
+Exec=./b200_transceiver.py
+Categories=Development;
+Icon=audio-headset
