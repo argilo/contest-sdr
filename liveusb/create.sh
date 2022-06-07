@@ -7,9 +7,9 @@ BASE_DIR=$(dirname -- "$0")
 OUT_IMG=${BASE_DIR}/disk.img
 HTTP_PORT=3003
 
+sudo mount -r ${SERVER_ISO} /mnt
 python3 -m http.server -d ${BASE_DIR} ${HTTP_PORT} &
 HTTP_SERVER_PID=$!
-sudo mount -r ${SERVER_ISO} /mnt
 qemu-img create ${OUT_IMG} 12G
 qemu-system-x86_64 \
     -enable-kvm \
