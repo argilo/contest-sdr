@@ -46,9 +46,7 @@ class lime_rx_tx(lime_rx):
         self.tx.set_band(self.band)
         self.tx.set_tune(self.tune)
         self.tx.set_cw_vector(morse_seq(tx_text))
-        self.tx.start()
-        self.tx.wait()
-        self.tx.stop()
+        self.tx.run()
         self.start()
 
         self.tx_text = ""
