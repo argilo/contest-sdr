@@ -29,6 +29,8 @@ autoinstall:
     - chmod u+x /target/etc/skel/Desktop/contest-sdr.desktop
     - mkdir -p /target/etc/skel/.local/share/applications
     - cp /target/opt/contest-sdr/liveusb/contest-sdr.desktop /target/etc/skel/.local/share/applications/
+    - mkdir -p /target/etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml
+    - cp /target/opt/contest-sdr/liveusb/xfce4-screensaver.xml /target/etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/
     - curtin in-target --target=/target -- /usr/bin/uhd_images_downloader
     - cp /target/opt/contest-sdr/liveusb/udev/*.rules /target/etc/udev/rules.d/
     - git clone https://github.com/pothosware/SoapyPlutoSDR.git /target/opt/SoapyPlutoSDR
