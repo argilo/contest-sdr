@@ -84,7 +84,7 @@ class lime_rx(gr.top_block, Qt.QWidget):
         self.decimation = decimation = 5
         self.cal_band = cal_band = (cal_freq - 100e3) / 1e6
         self.tx_text = tx_text = ''
-        self.tx_gain = tx_gain = 60
+        self.tx_gain = tx_gain = 40
         self.tune = tune = 100
         self.rx_gain = rx_gain = 40
         self.offset = offset = 200000
@@ -149,7 +149,7 @@ class lime_rx(gr.top_block, Qt.QWidget):
             self.top_grid_layout.setRowStretch(r, 1)
         for c in range(0, 4):
             self.top_grid_layout.setColumnStretch(c, 1)
-        self._tx_gain_range = Range(0, 89, 1, 60, 200)
+        self._tx_gain_range = Range(-12, 64, 1, 40, 200)
         self._tx_gain_win = RangeWidget(self._tx_gain_range, self.set_tx_gain, "TX gain", "counter_slider", float, QtCore.Qt.Horizontal)
         self.top_grid_layout.addWidget(self._tx_gain_win, 0, 5, 1, 2)
         for r in range(0, 1):
