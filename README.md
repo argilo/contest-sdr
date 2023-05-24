@@ -49,7 +49,7 @@ waterfalls will start running again.
 
 On an Ubuntu system:
 
-* Download https://releases.ubuntu.com/22.04/ubuntu-22.04-live-server-amd64.iso
+* Download https://releases.ubuntu.com/jammy/ubuntu-22.04.2-live-server-amd64.iso
   and place it in `~/Downloads/`
 * Install the qemu-system-x86 package: `sudo apt install qemu-system-x86`
 * Generate the live USB image: `liveusb/create.sh`
@@ -61,7 +61,7 @@ desktop corresponding to your SDR device.
 
 ## License
 
-Copyright 2015-2022 Clayton Smith
+Copyright 2015-2023 Clayton Smith
 
 This file is part of contest-sdr
 

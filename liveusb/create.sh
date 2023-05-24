@@ -2,7 +2,7 @@
 
 set -e
 
-SERVER_ISO=~/Downloads/ubuntu-22.04-live-server-amd64.iso
+SERVER_ISO=~/Downloads/ubuntu-22.04.2-live-server-amd64.iso
 BASE_DIR=$(dirname -- "$0")
 OUT_IMG=${BASE_DIR}/disk.img
 HTTP_PORT=3003
