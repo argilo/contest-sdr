@@ -14,6 +14,7 @@ autoinstall:
     - gnuradio
     - gqrx-sdr
     - uhd-host
+    - libusb-1.0-0-dev
     - libsoapysdr-dev
     - libiio-dev
     - libad9361-dev
