@@ -10,7 +10,7 @@ HTTP_PORT=3003
 sudo mount -r ${SERVER_ISO} /mnt
 python3 -m http.server -d ${BASE_DIR} ${HTTP_PORT} &
 HTTP_SERVER_PID=$!
-qemu-img create ${OUT_IMG} 12G
+qemu-img create ${OUT_IMG} 15G
 qemu-system-x86_64 \
     -enable-kvm \
     -no-reboot \
