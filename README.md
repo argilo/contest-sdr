@@ -54,10 +54,12 @@ On an Ubuntu system:
 * Install the qemu-system-x86 package: `sudo apt install qemu-system-x86 ovmf`
 * Generate the live USB image: `liveusb/create.sh`
 * At the prompt, enter your password to allow the Ubuntu ISO to be mounted
-* Write the image to a flash drive (16 GB or larger): `sudo dd if=liveusb/disk.img of=/dev/sdb bs=4M conv=fsync`
+* Write the image to a flash drive (16 GB or larger): `sudo dd if=liveusb/contest-sdr-uefi.img of=/dev/sdb bs=4M conv=fsync`
 
 Boot from the flash drive and double click the "Contest SDR" icon on the
 desktop corresponding to your SDR device.
+
+For old systems that don't support UEFI, the `contest-sdr-bios.img` image can be flashed instead.
 
 ## License
 
