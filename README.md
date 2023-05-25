@@ -51,7 +51,7 @@ On an Ubuntu system:
 
 * Download https://releases.ubuntu.com/jammy/ubuntu-22.04.2-live-server-amd64.iso
   and place it in `~/Downloads/`
-* Install the qemu-system-x86 package: `sudo apt install qemu-system-x86 ovmf`
+* Install the dependencies: `sudo apt install qemu-system-x86 ovmf`
 * Generate the live USB image: `liveusb/create.sh`
 * At the prompt, enter your password to allow the Ubuntu ISO to be mounted
 * Write the image to a flash drive (16 GB or larger): `sudo dd if=liveusb/contest-sdr-uefi.img of=/dev/sdb bs=4M conv=fsync`
