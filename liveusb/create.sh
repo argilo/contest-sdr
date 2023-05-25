@@ -11,7 +11,7 @@ HTTP_PORT=3003
 sudo mount -r ${SERVER_ISO} /mnt
 python3 -m http.server -d ${BASE_DIR} ${HTTP_PORT} &
 HTTP_SERVER_PID=$!
-qemu-img create ${OUT_IMG_UEFI} 15G
+qemu-img create ${OUT_IMG_UEFI} 14G
 qemu-system-x86_64 \
     -enable-kvm \
     -no-reboot \
@@ -23,7 +23,7 @@ qemu-system-x86_64 \
     -kernel /mnt/casper/vmlinuz \
     -initrd /mnt/casper/initrd \
     -append "ipv6.disable=1 autoinstall ds=nocloud-net;s=http://_gateway:${HTTP_PORT}/"
-qemu-img create ${OUT_IMG_BIOS} 15G
+qemu-img create ${OUT_IMG_BIOS} 14G
 qemu-system-x86_64 \
     -enable-kvm \
     -no-reboot \
