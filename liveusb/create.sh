@@ -16,6 +16,7 @@ qemu-system-x86_64 \
     -no-reboot \
     -m 2048 \
     -smp 2 \
+    -bios /usr/share/ovmf/OVMF.fd \
     -drive file=${OUT_IMG},format=raw,cache=none,if=virtio \
     -cdrom ${SERVER_ISO} \
     -kernel /mnt/casper/vmlinuz \
