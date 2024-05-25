@@ -63,7 +63,7 @@ For old systems that don't support UEFI, the `contest-sdr-bios.img` image can be
 
 ## License
 
-Copyright 2015-2023 Clayton Smith
+Copyright 2015-2024 Clayton Smith
 
 This file is part of contest-sdr
 
