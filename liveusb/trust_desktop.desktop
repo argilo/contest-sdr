@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=trust_desktop
+Exec=sh -c ~/trust_desktop.sh
+StartupNotify=false
+Terminal=false
+Hidden=false
