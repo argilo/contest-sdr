@@ -49,7 +49,7 @@ waterfalls will start running again.
 
 On an Ubuntu system:
 
-* Download https://releases.ubuntu.com/jammy/ubuntu-24.04-live-server-amd64.iso
+* Download https://releases.ubuntu.com/noble/ubuntu-24.04.1-live-server-amd64.iso
   and place it in `~/Downloads/`
 * Install the dependencies: `sudo apt install qemu-system-x86 ovmf`
 * Generate the live USB images: `liveusb/create.sh`

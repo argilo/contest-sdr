@@ -2,7 +2,7 @@
 
 set -e
 
-SERVER_ISO=~/Downloads/ubuntu-24.04-live-server-amd64.iso
+SERVER_ISO=~/Downloads/ubuntu-24.04.1-live-server-amd64.iso
 BASE_DIR=$(dirname -- "$0")
 OUT_IMG_UEFI=${BASE_DIR}/contest-sdr-uefi.img
 OUT_IMG_BIOS=${BASE_DIR}/contest-sdr-bios.img
