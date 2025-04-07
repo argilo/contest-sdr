@@ -16,7 +16,7 @@ qemu-system-x86_64 \
     -enable-kvm \
     -no-reboot \
     -m 2048 \
-    -smp 2 \
+    -smp 4 \
     -bios /usr/share/ovmf/OVMF.fd \
     -drive file=${OUT_IMG_UEFI},format=raw,cache=none,if=virtio \
     -cdrom ${SERVER_ISO} \
@@ -28,7 +28,7 @@ qemu-system-x86_64 \
     -enable-kvm \
     -no-reboot \
     -m 2048 \
-    -smp 2 \
+    -smp 4 \
     -drive file=${OUT_IMG_BIOS},format=raw,cache=none,if=virtio \
     -cdrom ${SERVER_ISO} \
     -kernel /mnt/casper/vmlinuz \
