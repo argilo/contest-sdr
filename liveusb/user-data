@@ -19,6 +19,8 @@ autoinstall:
     - libiio-dev
     - libad9361-dev
     - cmake
+    - build-essential
+    - python3-pip
   late-commands:
     - curtin in-target --target=/target -- apt-get -y purge gdm3
     - echo [SeatDefaults] >> /target/etc/lightdm/lightdm.conf.d/login.conf
@@ -43,3 +45,7 @@ autoinstall:
     - curtin in-target --target=/target -- cmake -DCMAKE_INSTALL_PREFIX=/usr -S /opt/SoapyPlutoSDR -B /opt/SoapyPlutoSDR/build
     - curtin in-target --target=/target -- cmake --build /opt/SoapyPlutoSDR/build
     - curtin in-target --target=/target -- cmake --install /opt/SoapyPlutoSDR/build
+    - git clone https://github.com/markqvist/tncattach.git /target/opt/tncattach
+    - curtin in-target --target=/target -- make --directory /opt/tncattach tncattach
+    - curtin in-target --target=/target -- make --directory /opt/tncattach install
+    - curtin in-target --target=/target -- python3 -m pip install --break-system-packages rns
