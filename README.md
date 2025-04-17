@@ -47,12 +47,19 @@ waterfalls will start running again.
 
 ## Building a bootable USB flash drive
 
-On an Ubuntu system:
+On a Debian-based system:
+
+* Install the dependencies: `sudo apt install qemu-system-x86 ovmf`
+
+On an Arch-based system:
+
+* Install the dependencies: `sudo pacman -S qemu-full edk2-ovmf`
+
+Additional steps:
 
 * Download https://releases.ubuntu.com/noble/ubuntu-24.04.2-live-server-amd64.iso
   and place it in `~/Downloads/`
-* Install the dependencies: `sudo apt install qemu-system-x86 ovmf`
-* Generate the live USB images: `liveusb/create.sh`
+* Generate the live USB images: `./liveusb/create.sh`
 * At the prompt, enter your password to allow the Ubuntu ISO to be mounted
 * Write an image to a flash drive (16 GB or larger): `sudo dd if=liveusb/contest-sdr-uefi.img of=/dev/sdb bs=4M conv=fsync`
 
@@ -63,7 +70,7 @@ For old systems that don't support UEFI, the `contest-sdr-bios.img` image can be
 
 ## License
 
-Copyright 2015-2024 Clayton Smith
+Copyright 2015-2025 Clayton Smith
 
 This file is part of contest-sdr
 
