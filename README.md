@@ -57,7 +57,7 @@ On an Arch-based system:
 
 Additional steps:
 
-* Download https://releases.ubuntu.com/noble/ubuntu-24.04.2-live-server-amd64.iso
+* Download https://releases.ubuntu.com/noble/ubuntu-24.04.4-live-server-amd64.iso
   and place it in `~/Downloads/`
 * Generate the live USB images: `./liveusb/create.sh`
 * At the prompt, enter your password to allow the Ubuntu ISO to be mounted
