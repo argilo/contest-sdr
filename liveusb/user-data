@@ -21,6 +21,7 @@ autoinstall:
     - cmake
     - build-essential
     - python3-pip
+    - python3-venv
   late-commands:
     - curtin in-target --target=/target -- apt-get -y purge gdm3
     - echo [SeatDefaults] >> /target/etc/lightdm/lightdm.conf.d/login.conf
@@ -48,4 +49,6 @@ autoinstall:
     - git clone https://github.com/markqvist/tncattach.git /target/opt/tncattach
     - curtin in-target --target=/target -- make --directory /opt/tncattach tncattach
     - curtin in-target --target=/target -- make --directory /opt/tncattach install
-    - curtin in-target --target=/target -- python3 -m pip install --break-system-packages rns
+    - curtin in-target --target=/target -- python3 -m venv /opt/rnodeconf
+    - curtin in-target --target=/target -- /opt/rnodeconf/bin/pip install rns
+    - curtin in-target --target=/target -- ln -s /opt/rnodeconf/bin/rnodeconf /usr/local/bin/rnodeconf
